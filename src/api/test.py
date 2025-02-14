@@ -1,7 +1,28 @@
+import base64
+import io
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
+from PIL import Image, ImageDraw
 import heapq
 from collections import deque
+from fastapi.middleware.cors import CORSMiddleware
 
+import math
 from PIL import Image, ImageDraw
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Разрешить запросы с любых источников (можно указать конкретные домены)
+    allow_credentials=True,
+    allow_methods=["*"],  # Разрешить все методы (GET, POST, PUT, DELETE и т.д.)
+    allow_headers=["*"],  # Разрешить все заголовки
+)
+
+# --- Ваш граф, координаты, функции поиска пути и отрисовки (как у вас) ---
+
 
 graph = {
     '1_entrance': [('1_corridor', 20)],
@@ -281,8 +302,7 @@ coords_floor2 = {
 }
 
 
-# 3. Функция поиска пути (BFS/Дейкстра и т.д.)
-
+# --- Функции поиска пути ---
 def bfs_path(graph, start, goal):
     visited = set([start])
     queue = deque([(start, [start])])
@@ -313,8 +333,24 @@ def dijkstra_path(graph, start, goal):
 
 
 DEBUG_SHOW_NODES = False
-import math
-from PIL import Image, ImageDraw
+
+
+# --- Функция отрисовки пути ---
+def draw_path(image_path, coords_dict, path, out_path):
+    """ Рисует маршрут (красная линия) и, если DEBUG включён, отображает узлы (синие кружки). """
+    img = Image.open(image_path)
+    draw = ImageDraw.Draw(img)
+    path_on_this_floor = [p for p in path if p in coords_dict]
+    for i in range(len(path_on_this_floor) - 1):
+        x1, y1 = coords_dict[path_on_this_floor[i]]
+        x2, y2 = coords_dict[path_on_this_floor[i + 1]]
+        draw.line((x1, y1, x2, y2), fill='red', width=3)
+    if DEBUG_SHOW_NODES:
+        for node, (x, y) in coords_dict.items():
+            r = 4
+            draw.ellipse((x - r, y - r, x + r, y + r), fill='blue')
+            draw.text((x + 5, y - 5), node, fill='blue')
+    img.save(out_path)
 
 
 def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=10, arrow_angle=30):
@@ -338,8 +374,8 @@ def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=
         x1, y1 = coords_dict[path_on_this_floor[i]]
         x2, y2 = coords_dict[path_on_this_floor[i + 1]]
 
-        # Рисуем основной сегмент пути (красная линия)
-        draw.line((x1, y1, x2, y2), fill='red', width=3)
+        # Рисуем основной сегмент пути (синяя линия)
+        draw.line((x1, y1, x2, y2), fill=(27, 115, 244), width=3)
 
         # Вычисляем угол направления линии
         angle = math.atan2(y2 - y1, x2 - x1)
@@ -356,8 +392,8 @@ def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=
         )
 
         # Рисуем линии стрелки
-        draw.line((x2, y2, arrow_point1[0], arrow_point1[1]), fill='red', width=3)
-        draw.line((x2, y2, arrow_point2[0], arrow_point2[1]), fill='red', width=3)
+        draw.line((x2, y2, arrow_point1[0], arrow_point1[1]), fill=(27, 115, 244), width=3)
+        draw.line((x2, y2, arrow_point2[0], arrow_point2[1]), fill=(27, 115, 244), width=3)
 
     # Если включён режим отладки, рисуем узлы и их подписи
     if DEBUG_SHOW_NODES:
@@ -368,34 +404,108 @@ def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=
 
     img.save(out_path)
 
-
-def draw_path(image_path, coords_dict, path, out_path):
-    """ Рисует маршрут (красная линия) и, при включённом DEBUG, отображает узлы (синие кружки). """
-    img = Image.open(image_path)
-    draw = ImageDraw.Draw(img)
-
-    # Рисуем сам путь (линии)
-    path_on_this_floor = [p for p in path if p in coords_dict]
-    for i in range(len(path_on_this_floor) - 1):
-        x1, y1 = coords_dict[path_on_this_floor[i]]
-        x2, y2 = coords_dict[path_on_this_floor[i + 1]]
-        draw.line((x1, y1, x2, y2), fill='red', width=3)
-
-    # Если включен режим отладки, рисуем все узлы с подписями
-    if DEBUG_SHOW_NODES:
-        for node, (x, y) in coords_dict.items():
-            r = 4  # радиус кружка
-            draw.ellipse((x - r, y - r, x + r, y + r), fill='blue')
-            # Отрисовка подписи узла (можно отключить, если не нужно)
-            draw.text((x + 5, y - 5), node, fill='blue')
-
-    img.save(out_path)
+# --- Маппинг для этажей ---
+# Предположим, что имена узлов начинаются с номера этажа
+floor_images = {
+    "1": r"E:\PycharmProjects\skgu_diplome_api\src\search\first_floor_6_housingtest.png",
+    "2": r"E:\PycharmProjects\skgu_diplome_api\src\search\second_floor_6_housing.png",
+}
+floor_coords = {
+    "1": coords_floor1,
+    "2": coords_floor2,
+}
 
 
-if __name__ == '__main__':
-    start_point = '1_entrance'
-    path = dijkstra_path(graph, start_point, target_office)
-    print("Путь:", path)
+@app.get("/route")
+async def get_route(start: str, target: str):
+    """
+    Принимает start и target (имена узлов, например, '1_entrance' и '2_office_225'),
+    строит путь, разбивает его по этажам и возвращает изображения маршрута (в base64) для каждого этажа.
+    """
+    print(target)
+    path = dijkstra_path(graph, start, target)
+    if not path:
+        raise HTTPException(status_code=404, detail="Путь не найден")
 
-    draw_path_with_arrows('first_floor_6_housingtest.png', coords_floor1, path,
-                          r'E:\PycharmProjects\skgu_diplome_api\src\search\path_images\first.png')
+    # Группируем узлы по этажам по префиксу (до знака '_')
+    floors = {}
+    for node in path:
+        floor = node.split('_')[0]  # Например, '1' или '2'
+        floors.setdefault(floor, []).append(node)
+
+    # Для каждого этажа генерируем картинку маршрута
+    images = []
+    for floor, floor_path in floors.items():
+        # Берём исходное изображение и координаты для этажа
+        image_path = floor_images.get(floor)
+        coords = floor_coords.get(floor)
+        if image_path is None or coords is None:
+            continue
+
+        # Отрисовываем весь путь, но на изображении будут видны только узлы, присутствующие в coords
+        out_path = f"temp_{floor}.png"
+        draw_path_with_arrows(image_path, coords, path, out_path)
+
+        # Читаем картинку и конвертируем в base64
+        with open(out_path, "rb") as f:
+            img_bytes = f.read()
+        img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+        images.append({"floor": floor, "image": img_b64})
+
+    return {"path": path, "images": images}
+
+
+location_names = {
+    '1_entrance': 'Вход',
+    '1_office104': 'Кабинет 104',
+    '1_office106': 'Кабинет 106',
+    '1_office107': 'Кабинет 107',
+    '1_office121': 'Кабинет 121',
+    '1_office120': 'Кабинет 120',
+    '1_office119': 'Кабинет 119',
+    'archive_first_floor': 'Архив',
+    'stairs_1_left': 'Лестница (левая)',
+    'stairs_1_right': 'Лестница (правая)',
+    '2_office_201': 'Кабинет 201',
+    '2_office_203': 'Кабинет 203',
+    '2_office_204': 'Кабинет 204',
+    '2_office_205': 'Кабинет 205',
+    '2_office_206': 'Кабинет 206',
+    '2_office_207': 'Кабинет 207',
+    '2_office_208': 'Кабинет 208',
+    '2_office_211': 'Кабинет 211',
+    '2_office_212': 'Кабинет 212',
+    '2_office_213': 'Кабинет 213',
+    '2_office_214': 'Кабинет 214',
+    '2_office_215': 'Кабинет 215',
+    '2_office_216': 'Кабинет 216',
+    '2_office_217': 'Кабинет 217',
+    '2_office_218': 'Кабинет 218',
+    '2_office_219': 'Кабинет 219',
+    '2_office_220': 'Кабинет 220',
+    '2_office_221': 'Кабинет 221',
+    '2_office_221A': 'Кабинет 221A',
+    '2_office_222': 'Кабинет 222',
+    '2_office_223': 'Кабинет 223',
+    '2_office_225': 'Кабинет 225',
+    '2_hall': 'Холл',
+    '2_toilet': 'Туалет',
+    'stairs_2_left': 'Лестница (левая, 2 этаж)',
+    'stairs_2_right': 'Лестница (правая, 2 этаж)',
+}
+
+
+@app.get("/suggest")
+async def suggest(term: str):
+    suggestions = []
+    for id, name_ru in location_names.items():
+        suggestions.append({"id": id, "name": name_ru})
+
+    filtered = [s for s in suggestions if term.lower() in s["name"].lower()]
+    return {"suggestions": filtered}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
