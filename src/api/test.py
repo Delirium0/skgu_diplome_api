@@ -11,6 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import math
 from PIL import Image, ImageDraw
 
+from src.api.search.database.test_crud import get_location_names
+
 app = FastAPI()
 
 app.add_middleware(
@@ -455,50 +457,11 @@ async def get_route(start: str, target: str):
     return {"path": path, "images": images}
 
 
-location_names = {
-    '1_entrance': 'Вход',
-    '1_office104': 'Кабинет 104',
-    '1_office106': 'Кабинет 106',
-    '1_office107': 'Кабинет 107',
-    '1_office121': 'Кабинет 121',
-    '1_office120': 'Кабинет 120',
-    '1_office119': 'Кабинет 119',
-    'archive_first_floor': 'Архив',
-    'stairs_1_left': 'Лестница (левая)',
-    'stairs_1_right': 'Лестница (правая)',
-    '2_office_201': 'Кабинет 201',
-    '2_office_203': 'Кабинет 203',
-    '2_office_204': 'Кабинет 204',
-    '2_office_205': 'Кабинет 205',
-    '2_office_206': 'Кабинет 206',
-    '2_office_207': 'Кабинет 207',
-    '2_office_208': 'Кабинет 208',
-    '2_office_211': 'Кабинет 211',
-    '2_office_212': 'Кабинет 212',
-    '2_office_213': 'Кабинет 213',
-    '2_office_214': 'Кабинет 214',
-    '2_office_215': 'Кабинет 215',
-    '2_office_216': 'Кабинет 216',
-    '2_office_217': 'Кабинет 217',
-    '2_office_218': 'Кабинет 218',
-    '2_office_219': 'Кабинет 219',
-    '2_office_220': 'Кабинет 220',
-    '2_office_221': 'Кабинет 221',
-    '2_office_221A': 'Кабинет 221A',
-    '2_office_222': 'Кабинет 222',
-    '2_office_223': 'Кабинет 223',
-    '2_office_225': 'Кабинет 225',
-    '2_hall': 'Холл',
-    '2_toilet': 'Туалет',
-    'stairs_2_left': 'Лестница (левая, 2 этаж)',
-    'stairs_2_right': 'Лестница (правая, 2 этаж)',
-}
 
-
-@app.get("/suggest")
+@app.get("/search/suggest")
 async def suggest(term: str):
     suggestions = []
-    for id, name_ru in location_names.items():
+    for id, name_ru in get_location_names.items():
         suggestions.append({"id": id, "name": name_ru})
 
     filtered = [s for s in suggestions if term.lower() in s["name"].lower()]

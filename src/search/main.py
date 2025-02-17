@@ -9,6 +9,7 @@ graph = {
         ('1_corridor_104_archive', 1),
         ('1_entrance', 20),
         ('stairs_1_left_corridor', 1),
+        ('cafeteria', 1),
     ],
 
     '1_office104': [('1_corridor', 1), ('1_corridor_104_archive', 1)],
@@ -46,10 +47,6 @@ graph = {
     ],
 
     '1_office119': [('1_corridor_119', 1)],
-    '1_corridor_119': [
-        ('1_office119', 1),
-        ('1_corridor_120', 1),
-    ],
 
     '2_office203': [('2_corridor', 5)],
     'stairs_1_right_corridor': [
@@ -197,10 +194,284 @@ graph = {
         ('2_office_214', 1),
         ('2_corridor_214_215', 1),
     ],
+    '1_corridor_119': [
+        ('1_office119', 1),
+        ('1_corridor_120', 1),
+        ('1_corridor_118', 1),
+    ],
+    # --- Продолжение первого этажа ---
+    '1_office_118': [('1_corridor_118', 1)],
+    '1_corridor_118': [
+        ('1_corridor_119', 1),
+        ('1_office_118', 1),
+        ('1_corridor_117_toilet', 1),
+    ],
+    '1_office_117': [('1_corridor_117_toilet', 1)],
+    'toilet_first_floor': [('1_corridor_117_toilet', 1)],
+    '1_corridor_117_toilet': [
+        ('1_corridor_118', 1),
+        ('toilet_first_floor', 1),
+        ('1_office_117', 1),
+        ('1_corridor_109_116', 1),
+    ],
+    '1_office_109': [('1_corridor_109_116', 1)],
+    '1_office_116': [('1_corridor_109_116', 1)],
+    '1_corridor_109_116': [
+        ('1_corridor_117_toilet', 1),
+        ('1_office_109', 1),
+        ('1_office_116', 1),
+        ('1_corridor_110_115', 1),
+    ],
+    '1_office_110': [('1_corridor_110_115', 1)],
+    '1_office_115': [('1_corridor_110_115', 1)],
+    '1_corridor_110_115': [
+        ('1_office_110', 1),
+        ('1_office_115', 1),
+        ('1_corridor_109_116', 1),
+        ('1_corridor_111_114', 1),
+    ],
+    '1_office_114': [('1_corridor_111_114', 1)],
+    '1_office_111': [('1_corridor_111_114', 1)],
+    '1_corridor_111_114': [
+        ('1_office_111', 1),
+        ('1_office_114', 1),
+        ('1_corridor_110_115', 1),
+        ('1_corridor_112_113', 1),
+    ],
+    '1_office_112': [('1_corridor_112_113', 1)],
+    '1_office_113': [('1_corridor_112_113', 1)],
+    '1_corridor_112_113': [
+        ('1_office_113', 1),
+        ('1_office_112', 1),
+        ('1_corridor_110_115', 1),
+    ],
+    'cafeteria': [('1_corridor', 1)],
+
 }
-target_office = '2_office_214'
+graph_5_building = {
+    '1_entrance': [('1_corridor_main',  1)],
+    '1_corridor_main': [
+        ('1_entrance', 1),
+        ('1_corridor_cafeteria_wardrobe', 1),
+        ('1_corridor_lecture_halls', 1),
+        ('1_corridor_stairs_left', 1),
+        ('1_corridor_103', 1),
+
+    ],
+    '1_wardrobe': [('1_corridor_cafeteria_wardrobe',  1)],
+    '1_cafeteria': [('1_corridor_cafeteria_wardrobe',  1)],
+    '1_corridor_cafeteria_wardrobe': [
+        ('1_cafeteria', 1),
+        ('1_wardrobe', 1),
+        ('1_corridor_main', 1),
+    ],
+    '1_corridor_lecture_halls': [
+        ('1_corridor_main', 1),
+        ('1_corridor_lecture_halls_first', 1),
+    ],
+    '1_corridor_lecture_halls_first': [
+        ('1_corridor_lecture_halls', 1),
+        ('1_corridor_assembly_hall', 1),
+        ('1_corridor_lecture_halls_right', 1),
+    ],
+    '1_corridor_assembly_hall': [
+        ('1_corridor_lecture_halls_first', 1),
+        ('1_assembly_hall', 1),
+    ],
+    '1_assembly_hall': [('1_corridor_assembly_hall',  1)],
+    '1_corridor_lecture_halls_right': [
+        ('1_corridor_lecture_halls_first', 1),
+        ('1_lecture_halls', 1),
+    ],
+    '1_lecture_halls': [('1_corridor_lecture_halls_right',  1)],
+    '1_corridor_stairs_left': [
+        ('1_corridor_main',  1),
+        ('1_stairs_left',  1),
+    ],
+    '1_stairs_left': [('1_corridor_stairs_left',  1)],
+    '1_corridor_103': [
+        ('1_corridor_main',  1),
+        ('1_office_103',  1),
+        ('1_corridor_104',  1),
+    ],
+    '1_office_103': [('1_corridor_103',  1)],
+    '1_corridor_104': [
+        ('1_corridor_103',  1),
+        ('1_office_104',  1),
+        ('1_corridor_104A_105',  1),
+    ],
+    '1_office_104': [('1_corridor_104',  1)],
+    '1_corridor_104A_105': [
+        ('1_corridor_104',  1),
+        ('1_office_104A',  1),
+        ('1_office_105',  1),
+        ('1_corridor_106',  1),
+    ],
+    '1_office_104A': [('1_corridor_104A_105',  1)],
+    '1_office_105': [('1_corridor_104A_105',  1)],
+    '1_corridor_106': [
+        ('1_corridor_104A_105',  1),
+        ('1_office_106',  1),
+        ('1_corridor_108_109',  1),
+    ],
+    '1_office_106': [('1_corridor_106',  1)],
+    '1_corridor_108_109': [
+        ('1_corridor_106',  1),
+        ('1_office_108',  1),
+        ('1_office_109',  1),
+        ('1_corridor_110_stairs_first',  1),
+    ],
+    '1_office_108': [('1_corridor_108_109',  1)],
+    '1_office_109': [('1_corridor_108_109',  1)],
+    '1_corridor_110_stairs_first': [
+        ('1_corridor_108_109',  1),
+        ('1_corridor_111',  1),
+        ('1_corridor_110_stairs',  1),
+    ],
+    '1_corridor_110_stairs': [
+        ('1_corridor_110_stairs_first',  1),
+        ('1_office_110',  1),
+        ('1_stairs_right',  1),
+    ],
+    '1_office_110': [('1_corridor_110_stairs',  1)],
+    '1_stairs_right': [('1_corridor_110_stairs',  1)],
+    '1_corridor_111': [
+        ('1_corridor_110_stairs_first',  1),
+        ('1_office_111',  1),
+        ('1_corridor_service_toilet',  1),
+    ],
+    '1_office_111': [('1_corridor_111',  1)],
+    '1_corridor_service_toilet': [
+        ('1_corridor_111',  1),
+        ('1_service_toilet',  1),
+        ('1_corridor_toilet_113',  1),
+    ],
+    '1_service_toilet': [('1_corridor_service_toilet',  1)],
+    '1_corridor_toilet_113': [
+        ('1_corridor_service_toilet',  1),
+        ('1_toilet',  1),
+        ('1_office_113',  1),
+        ('1_corridor_toilet_112',  1),
+    ],
+    '1_toilet': [('1_corridor_toilet_113',  1)],
+    '1_office_113': [('1_corridor_toilet_113',  1)],
+    '1_corridor_toilet_112': [
+        ('1_corridor_toilet_113',  1),
+        ('1_office_112',  1),
+        ('1_corridor_toilet_114_115_116',  1),
+    ],
+    '1_office_112': [('1_corridor_toilet_112',  1)],
+    '1_corridor_toilet_114_115_116': [
+        ('1_corridor_toilet_112',  1),
+        ('1_office_114',  1),
+        ('1_office_115',  1),
+        ('1_office_116',  1),
+        ('1_corridor_toilet_117_118',  1),
+    ],
+    '1_office_114': [('1_corridor_toilet_114_115_116',  1)],
+    '1_office_115': [('1_corridor_toilet_114_115_116',  1)],
+    '1_office_116': [('1_corridor_toilet_114_115_116',  1)],
+    '1_corridor_toilet_117_118': [
+        ('1_corridor_toilet_112',  1),
+        ('1_office_117',  1),
+        ('1_office_118',  1),
+    ],
+    '1_office_117': [('1_corridor_toilet_117_118',  1)],
+    '1_office_118': [('1_corridor_toilet_117_118',  1)],
+
+}
+target_office = '1_office_118'
+
+coords_floor1_5_building = {
+    '1_corridor_toilet_117_118': (1055, 355),
+    '1_office_117': (1055, 395),
+    '1_office_118': (1055, 321),
+
+    '1_corridor_toilet_114_115_116': (966, 355),
+    '1_office_114': (946, 321),
+    '1_office_115': (966, 395),
+    '1_office_116': (984, 321),
+
+    '1_corridor_toilet_112': (901, 355),
+    '1_office_112': (901, 321),
+
+    '1_corridor_toilet_113': (848, 355),
+    '1_toilet': (848, 321),
+    '1_office_113': (848, 395),
+
+    '1_corridor_service_toilet': (771, 355),
+    '1_service_toilet': (771, 321),
+
+    '1_corridor_111': (695, 355),
+    '1_office_111': (695, 395),
+
+    '1_corridor_110_stairs_first': (646, 355),
+    '1_corridor_110_stairs': (646, 238),
+    '1_office_110': (618, 238),
+    '1_stairs_right': (671, 238),
+
+    '1_corridor_108_109': (597, 355),
+    '1_office_108': (597, 321),
+    '1_office_109': (630, 395),
+
+    '1_corridor_106': (564, 355),
+    '1_office_106': (564, 321),
+
+    '1_corridor_104A_105': (522, 355),
+    '1_office_104A': (522, 321),
+    '1_office_105': (522, 395),
+
+    '1_corridor_104': (470, 355),
+    '1_office_104': (470, 321),
+
+    '1_corridor_103': (373, 355),
+    '1_office_103': (373, 395),
+
+    '1_stairs_left': (300, 292),
+    '1_corridor_stairs_left': (250, 292),
+
+    '1_corridor_lecture_halls': (218, 355),
+    '1_corridor_lecture_halls_first': (218, 161),
+    '1_corridor_assembly_hall': (106, 161),
+    '1_corridor_lecture_halls_right': (263, 161),
+    '1_assembly_hall': (106, 148),
+    '1_lecture_halls': (263, 148),
+
+    '1_corridor_cafeteria_wardrobe': (162, 355),
+    '1_cafeteria': (135, 355),
+    '1_wardrobe': (162, 392),
+
+    '1_entrance': (250, 445),
+    '1_corridor_main': (250, 355),
+
+}
 
 coords_floor1 = {
+    'cafeteria': (137, 350),
+
+    '1_corridor_112_113': (1050, 350),
+    '1_office_112': (1050, 304),
+    '1_office_113': (1050, 380),
+
+    '1_corridor_111_114': (978, 350),
+    '1_office_114': (978, 380),
+    '1_office_111': (978, 304),
+
+    '1_corridor_110_115': (863, 350),
+    '1_office_110': (863, 304),
+    '1_office_115': (863, 380),
+
+    '1_corridor_109_116': (823, 350),
+    '1_office_109': (823, 304),
+    '1_office_116': (823, 380),
+
+    '1_corridor_117_toilet': (735, 350),
+    '1_office_117': (735, 380),
+    'toilet_first_floor': (735, 304),
+
+    '1_corridor_118': (680, 350),
+    '1_office_118': (680, 380),
+
     'stairs_1_left': (345, 274),
     'stairs_1_right': (623, 214),
     'stairs_1_left_corridor': (240, 274),
@@ -280,9 +551,30 @@ coords_floor2 = {
     'stairs_2_right': (616, 200),
 }
 
+import math
+from PIL import Image, ImageDraw
 
-# 3. Функция поиска пути (BFS/Дейкстра и т.д.)
+# Изображения этажей
+floor_images = {
+    "1": r"E:\PycharmProjects\skgu_diplome_api\src\api\search\images\first_floor_6_housingtest.png",
+    "2": r"E:\PycharmProjects\skgu_diplome_api\src\api\search\images\second_floor_6_housing.png",
+}
+floor_images_5_building = {
+    "1": r"E:\PycharmProjects\skgu_diplome_api\src\api\search\images\first_floor_5_building.png",
+}
+floor_coords_5_building = {
+    "1": coords_floor1_5_building,
+}
+floor_coords = {
+    "1": coords_floor1,
+    "2": coords_floor2,
+}
 
+# Константы отладки
+DEBUG_SHOW_NODES = True
+
+
+# Функции поиска пути (BFS/Дейкстра и т.д.)
 def bfs_path(graph, start, goal):
     visited = set([start])
     queue = deque([(start, [start])])
@@ -312,11 +604,7 @@ def dijkstra_path(graph, start, goal):
     return None
 
 
-DEBUG_SHOW_NODES = False
-import math
-from PIL import Image, ImageDraw
-
-
+# Функции для рисования маршрута
 def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=10, arrow_angle=30):
     """
     Рисует маршрут с стрелками, указывающими направление.
@@ -369,33 +657,36 @@ def draw_path_with_arrows(image_path, coords_dict, path, out_path, arrow_length=
     img.save(out_path)
 
 
-def draw_path(image_path, coords_dict, path, out_path):
-    """ Рисует маршрут (красная линия) и, при включённом DEBUG, отображает узлы (синие кружки). """
-    img = Image.open(image_path)
-    draw = ImageDraw.Draw(img)
+def process_route(start_point, target_point):
+    """
+    Вычисляет путь и генерирует изображения маршрута для каждого этажа.
+    Пути к изображениям и координаты берутся из глобальных словарей.
+    """
+    path = dijkstra_path(graph_5_building, start_point, target_point)
+    print("Путь:", path)
 
-    # Рисуем сам путь (линии)
-    path_on_this_floor = [p for p in path if p in coords_dict]
-    for i in range(len(path_on_this_floor) - 1):
-        x1, y1 = coords_dict[path_on_this_floor[i]]
-        x2, y2 = coords_dict[path_on_this_floor[i + 1]]
-        draw.line((x1, y1, x2, y2), fill='red', width=3)
+    if not path:
+        print("Путь не найден.")
+        return
 
-    # Если включен режим отладки, рисуем все узлы с подписями
-    if DEBUG_SHOW_NODES:
-        for node, (x, y) in coords_dict.items():
-            r = 4  # радиус кружка
-            draw.ellipse((x - r, y - r, x + r, y + r), fill='blue')
-            # Отрисовка подписи узла (можно отключить, если не нужно)
-            draw.text((x + 5, y - 5), node, fill='blue')
+    for floor, image_path in floor_images_5_building.items():
+        coords = floor_coords_5_building.get(floor)
+        if not coords:
+            continue
 
-    img.save(out_path)
+        # Проверяем, есть ли узлы с текущего этажа в построенном пути
+        floor_nodes_in_path = [node for node in path if node.startswith(floor + '_') and node in coords]
+        if not floor_nodes_in_path:
+            continue  # Если нет узлов этажа в пути, переходим к следующему этажу
+
+        # Определяем имя выходного файла для этого этажа
+        out_path = f'E:\\PycharmProjects\\skgu_diplome_api\\src\\search\\path_images\\floor_{floor}.png'
+
+        # Рисуем маршрут
+        draw_path_with_arrows(image_path, coords, path, out_path)
 
 
 if __name__ == '__main__':
     start_point = '1_entrance'
-    path = dijkstra_path(graph, start_point, target_office)
-    print("Путь:", path)
 
-    draw_path_with_arrows('first_floor_6_housingtest.png', coords_floor1, path,
-                          r'E:\PycharmProjects\skgu_diplome_api\src\search\path_images\first.png')
+    process_route(start_point, target_office)

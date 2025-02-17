@@ -1,0 +1,27 @@
+{
+    "image_path": "E:\\PycharmProjects\\skgu_diplome_api\\src\\search\\first_floor_5_building.png",
+    "nodes": {
+        "33": [
+            343,
+            155,
+            "corridor"
+        ],
+        "1_florr": [
+            224,
+            160,
+            "corridor"
+        ],
+        "2_florr": [
+            225,
+            281,
+            "corridor"
+        ]
+    },
+    "edges": [
+        [
+            "1_florr",
+            "2_florr",
+            1.0
+        ]
+    ]
+}
