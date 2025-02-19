@@ -1,0 +1,397 @@
+{
+  "image_path": "E:\\PycharmProjects\\skgu_diplome_api\\src\\api\\search\\images\\first_floor_6_housingtest.png",
+  "nodes": {
+    "cafeteria": [
+      137,
+      350,
+      "cafeteria"
+    ],
+    "1_corridor_112_113": [
+      1050,
+      350,
+      "corridor"
+    ],
+    "1_office_112": [
+      1050,
+      304,
+      "office"
+    ],
+    "1_office_113": [
+      1050,
+      380,
+      "office"
+    ],
+    "1_corridor_111_114": [
+      978,
+      350,
+      "corridor"
+    ],
+    "1_office_114": [
+      978,
+      380,
+      "office"
+    ],
+    "1_office_111": [
+      978,
+      304,
+      "office"
+    ],
+    "1_corridor_110_115": [
+      863,
+      350,
+      "corridor"
+    ],
+    "1_office_110": [
+      863,
+      304,
+      "office"
+    ],
+    "1_office_115": [
+      863,
+      380,
+      "office"
+    ],
+    "1_corridor_109_116": [
+      823,
+      350,
+      "corridor"
+    ],
+    "1_office_109": [
+      823,
+      304,
+      "office"
+    ],
+    "1_office_116": [
+      823,
+      380,
+      "office"
+    ],
+    "1_corridor_117_toilet": [
+      735,
+      350,
+      "corridor"
+    ],
+    "1_office_117": [
+      735,
+      380,
+      "office"
+    ],
+    "toilet_first_floor": [
+      735,
+      304,
+      "toilet_first_floor"
+    ],
+    "1_corridor_118": [
+      680,
+      350,
+      "corridor"
+    ],
+    "1_office_118": [
+      680,
+      380,
+      "office"
+    ],
+    "stairs_1_left": [
+      345,
+      274,
+      "stairs_1_left"
+    ],
+    "stairs_1_right": [
+      623,
+      214,
+      "stairs_1_right"
+    ],
+    "stairs_1_left_corridor": [
+      240,
+      274,
+      "corridor"
+    ],
+    "stairs_1_right_corridor": [
+      605,
+      214,
+      "corridor"
+    ],
+    "1_entrance": [
+      240,
+      500,
+      "1_entrance"
+    ],
+    "1_corridor": [
+      240,
+      350,
+      "corridor"
+    ],
+    "1_corridor_104_archive": [
+      416,
+      350,
+      "corridor"
+    ],
+    "1_corridor_106_archive": [
+      460,
+      350,
+      "corridor"
+    ],
+    "1_corridor_107_121": [
+      500,
+      350,
+      "corridor"
+    ],
+    "1_corridor_120": [
+      567,
+      350,
+      "corridor"
+    ],
+    "1_corridor_119": [
+      630,
+      350,
+      "corridor"
+    ],
+    "1_office104": [
+      416,
+      304,
+      "office"
+    ],
+    "1_office106": [
+      460,
+      304,
+      "office"
+    ],
+    "1_office107": [
+      520,
+      304,
+      "office"
+    ],
+    "1_office121": [
+      500,
+      380,
+      "office"
+    ],
+    "1_office120": [
+      567,
+      380,
+      "office"
+    ],
+    "1_office119": [
+      630,
+      380,
+      "office"
+    ],
+    "stairs_1": [
+      400,
+      300,
+      "stairs_1"
+    ],
+    "archive_first_floor": [
+      430,
+      380,
+      "archive_first_floor"
+    ]
+  },
+  "edges": [
+    [
+      "1_entrance",
+      "1_corridor",
+      20.0
+    ],
+    [
+      "1_corridor",
+      "1_corridor_104_archive",
+      1.0
+    ],
+    [
+      "1_corridor",
+      "stairs_1_left_corridor",
+      1.0
+    ],
+    [
+      "1_corridor",
+      "cafeteria",
+      1.0
+    ],
+    [
+      "1_office104",
+      "1_corridor",
+      1.0
+    ],
+    [
+      "1_office104",
+      "1_corridor_104_archive",
+      1.0
+    ],
+    [
+      "archive_first_floor",
+      "1_corridor",
+      1.0
+    ],
+    [
+      "archive_first_floor",
+      "1_corridor_104_archive",
+      1.0
+    ],
+    [
+      "1_corridor_104_archive",
+      "1_corridor_106_archive",
+      1.0
+    ],
+    [
+      "1_office106",
+      "1_corridor_106_archive",
+      1.0
+    ],
+    [
+      "1_corridor_106_archive",
+      "1_corridor_107_121",
+      1.0
+    ],
+    [
+      "1_office107",
+      "1_corridor_107_121",
+      1.0
+    ],
+    [
+      "1_office121",
+      "1_corridor_107_121",
+      1.0
+    ],
+    [
+      "1_corridor_107_121",
+      "1_corridor_120",
+      1.0
+    ],
+    [
+      "1_office120",
+      "1_corridor_120",
+      1.0
+    ],
+    [
+      "1_corridor_120",
+      "1_corridor_119",
+      1.0
+    ],
+    [
+      "1_corridor_120",
+      "stairs_1_right_corridor",
+      1.0
+    ],
+    [
+      "1_office119",
+      "1_corridor_119",
+      1.0
+    ],
+    [
+      "stairs_1_right_corridor",
+      "stairs_1_right",
+      1.0
+    ],
+    [
+      "stairs_1_left",
+      "stairs_1_left_corridor",
+      1.0
+    ],
+    [
+      "stairs_1_left_corridor",
+      "archive_first_floor",
+      1.0
+    ],
+    [
+      "1_corridor_119",
+      "1_corridor_118",
+      1.0
+    ],
+    [
+      "1_office_118",
+      "1_corridor_118",
+      1.0
+    ],
+    [
+      "1_corridor_118",
+      "1_corridor_117_toilet",
+      1.0
+    ],
+    [
+      "1_office_117",
+      "1_corridor_117_toilet",
+      1.0
+    ],
+    [
+      "toilet_first_floor",
+      "1_corridor_117_toilet",
+      1.0
+    ],
+    [
+      "1_corridor_117_toilet",
+      "1_corridor_109_116",
+      1.0
+    ],
+    [
+      "1_office_109",
+      "1_corridor_109_116",
+      1.0
+    ],
+    [
+      "1_office_116",
+      "1_corridor_109_116",
+      1.0
+    ],
+    [
+      "1_corridor_109_116",
+      "1_corridor_110_115",
+      1.0
+    ],
+    [
+      "1_office_110",
+      "1_corridor_110_115",
+      1.0
+    ],
+    [
+      "1_office_115",
+      "1_corridor_110_115",
+      1.0
+    ],
+    [
+      "1_corridor_110_115",
+      "1_corridor_111_114",
+      1.0
+    ],
+    [
+      "1_office_114",
+      "1_corridor_111_114",
+      1.0
+    ],
+    [
+      "1_office_111",
+      "1_corridor_111_114",
+      1.0
+    ],
+    [
+      "1_corridor_111_114",
+      "1_corridor_112_113",
+      1.0
+    ],
+    [
+      "1_office_112",
+      "1_corridor_112_113",
+      1.0
+    ],
+    [
+      "1_office_113",
+      "1_corridor_112_113",
+      1.0
+    ],
+    [
+      "1_corridor_112_113",
+      "1_corridor_110_115",
+      1.0
+    ],
+    [
+      "stairs_1_left",
+      "stairs_2_left",
+      1.0
+    ],
+    [
+      "stairs_2_right",
+      "stairs_1_right",
+      1.0
+    ]
+  ]
+}

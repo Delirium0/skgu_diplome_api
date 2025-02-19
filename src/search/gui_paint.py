@@ -19,6 +19,7 @@ def build_graph(nodes, edges):
     for node_name in nodes:
         graph[node_name] = []
     for node1, node2, weight in edges:
+        print(node1, node2)
         graph[node1].append((node2, weight))
         graph[node2].append((node1, weight))
     return graph
@@ -130,7 +131,7 @@ def process_route(json_file, start_point, target_point, output_folder="path_imag
 
 
 if __name__ == '__main__':
-    json_file = r'E:\PycharmProjects\skgu_diplome_api\src\search\qefqef.json'
-    start_point = '1_florr'
-    target_point = '2_florr'
+    json_file = r'E:\PycharmProjects\skgu_diplome_api\src\search\floor1_building1.json'
+    start_point = '1_entrance'
+    target_point = '2_office_214'
     process_route(json_file, start_point, target_point)

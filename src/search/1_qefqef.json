@@ -1,0 +1,67 @@
+{
+    "image_path": "E:\\PycharmProjects\\skgu_diplome_api\\src\\search\\path_images\\first_floor_5_building_path.png",
+    "nodes": {
+        "main_corridor": [
+            256,
+            364,
+            "corridor"
+        ],
+        "1_corridor_104": [
+            469,
+            359,
+            "corridor"
+        ],
+        "office_104": [
+            467,
+            320,
+            "office"
+        ],
+        "office_104A": [
+            521,
+            321,
+            "office"
+        ],
+        "office_106": [
+            560,
+            318,
+            "office"
+        ],
+        "corridor111": [
+            698,
+            357,
+            "corridor"
+        ],
+        "office111": [
+            696,
+            394,
+            "office"
+        ]
+    },
+    "edges": [
+        [
+            "main_corridor",
+            "1_corridor_104",
+            1.0
+        ],
+        [
+            "1_corridor_104",
+            "office_104",
+            1.0
+        ],
+        [
+            "1_corridor_104",
+            "office_106",
+            1.0
+        ],
+        [
+            "1_corridor_104",
+            "corridor111",
+            1.0
+        ],
+        [
+            "corridor111",
+            "office111",
+            1.0
+        ]
+    ]
+}

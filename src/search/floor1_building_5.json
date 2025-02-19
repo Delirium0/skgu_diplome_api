@@ -1,0 +1,231 @@
+{
+    "image_path": "E:\\PycharmProjects\\skgu_diplome_api\\src\\api\\search\\images\\first_floor_5_building.png",
+    "nodes": {
+        "1_corridor_toilet_117_118": [
+            1055,
+            355,
+            "corridor"
+        ],
+        "1_office_117": [
+            1055,
+            395,
+            "office"
+        ],
+        "1_office_118": [
+            1055,
+            321,
+            "office"
+        ],
+        "1_corridor_toilet_114_115_116": [
+            966,
+            355,
+            "corridor"
+        ],
+        "1_office_114": [
+            946,
+            321,
+            "office"
+        ],
+        "1_office_115": [
+            966,
+            395,
+            "office"
+        ],
+        "1_office_116": [
+            984,
+            321,
+            "office"
+        ],
+        "1_corridor_toilet_112": [
+            901,
+            355,
+            "corridor"
+        ],
+        "1_office_112": [
+            901,
+            321,
+            "office"
+        ],
+        "1_corridor_toilet_113": [
+            848,
+            355,
+            "corridor"
+        ],
+        "1_toilet": [
+            848,
+            321,
+            "1_toilet"
+        ],
+        "1_office_113": [
+            848,
+            395,
+            "office"
+        ],
+        "1_corridor_service_toilet": [
+            771,
+            355,
+            "corridor"
+        ],
+        "1_service_toilet": [
+            771,
+            321,
+            "1_service_toilet"
+        ],
+        "1_corridor_111": [
+            695,
+            355,
+            "corridor"
+        ],
+        "1_office_111": [
+            695,
+            395,
+            "office"
+        ],
+        "1_corridor_110_stairs_first": [
+            646,
+            355,
+            "corridor"
+        ],
+        "1_corridor_110_stairs": [
+            646,
+            238,
+            "corridor"
+        ],
+        "1_office_110": [
+            618,
+            238,
+            "office"
+        ],
+        "1_stairs_right": [
+            671,
+            238,
+            "1_stairs_right"
+        ],
+        "1_corridor_108_109": [
+            597,
+            355,
+            "corridor"
+        ],
+        "1_office_108": [
+            597,
+            321,
+            "office"
+        ],
+        "1_office_109": [
+            630,
+            395,
+            "office"
+        ],
+        "1_corridor_106": [
+            564,
+            355,
+            "corridor"
+        ],
+        "1_office_106": [
+            564,
+            321,
+            "office"
+        ],
+        "1_corridor_104A_105": [
+            522,
+            355,
+            "corridor"
+        ],
+        "1_office_104A": [
+            522,
+            321,
+            "office"
+        ],
+        "1_office_105": [
+            522,
+            395,
+            "office"
+        ],
+        "1_corridor_104": [
+            470,
+            355,
+            "corridor"
+        ],
+        "1_office_104": [
+            470,
+            321,
+            "office"
+        ],
+        "1_corridor_103": [
+            373,
+            355,
+            "corridor"
+        ],
+        "1_office_103": [
+            373,
+            395,
+            "office"
+        ],
+        "1_stairs_left": [
+            300,
+            292,
+            "1_stairs_left"
+        ],
+        "1_corridor_stairs_left": [
+            250,
+            292,
+            "corridor"
+        ],
+        "1_corridor_lecture_halls": [
+            218,
+            355,
+            "corridor"
+        ],
+        "1_corridor_lecture_halls_first": [
+            218,
+            161,
+            "corridor"
+        ],
+        "1_corridor_assembly_hall": [
+            106,
+            161,
+            "corridor"
+        ],
+        "1_corridor_lecture_halls_right": [
+            263,
+            161,
+            "corridor"
+        ],
+        "1_assembly_hall": [
+            106,
+            148,
+            "1_assembly_hall"
+        ],
+        "1_lecture_halls": [
+            263,
+            148,
+            "1_lecture_halls"
+        ],
+        "1_corridor_cafeteria_wardrobe": [
+            162,
+            355,
+            "corridor"
+        ],
+        "1_cafeteria": [
+            135,
+            355,
+            "1_cafeteria"
+        ],
+        "1_wardrobe": [
+            162,
+            392,
+            "1_wardrobe"
+        ],
+        "1_entrance": [
+            250,
+            445,
+            "1_entrance"
+        ],
+        "1_corridor_main": [
+            250,
+            355,
+            "corridor"
+        ]
+    },
+    "edges": []
+}
