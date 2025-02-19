@@ -63,7 +63,7 @@ class Edge(Base):
 
     floor: Mapped["Floor"] = relationship(back_populates="edges")
     __table_args__ = (
-    UniqueConstraint('floor_id', 'source_node_name', 'target_node_name', name='unique_edge_per_floor'),)
+        UniqueConstraint('floor_id', 'source_node_name', 'target_node_name', name='unique_edge_per_floor'),)
 
 
 from sqlalchemy import MetaData, NullPool
@@ -191,7 +191,20 @@ async def main():
 
     # Загрузите ваш JSON файл
     import json
+    # корпус 5 этаж 1
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor1_building_5.json", 'r',
+              encoding='utf-8') as f:
+        data = json.load(f)
 
+    await load_data_to_db(db, data, building_number="5", floor_number=1)
+
+    # корпус 6 этаж 1
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor1_building1.json", 'r',
+              encoding='utf-8') as f:
+        data = json.load(f)
+
+    await load_data_to_db(db, data, building_number="6", floor_number=1)
+    # корпус 6 этаж 2
     with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor2_building1.json", 'r',
               encoding='utf-8') as f:
         data = json.load(f)

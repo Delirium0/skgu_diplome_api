@@ -9,9 +9,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор/Туалет (117-118)",
+                "en": "Corridor/Toilet (117-118)",
+                "kz": "Дәліз/Әжетхана (117-118)"
             },
             "description": {
                 "ru": "",
@@ -26,9 +26,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 117",
+                "en": "Office 117",
+                "kz": "Кабинет 117"
             },
             "description": {
                 "ru": "",
@@ -43,9 +43,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 118",
+                "en": "Office 118",
+                "kz": "Кабинет 118"
             },
             "description": {
                 "ru": "",
@@ -60,9 +60,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор/Туалет (114-115-116)",
+                "en": "Corridor/Toilet (114-115-116)",
+                "kz": "Дәліз/Әжетхана (114-115-116)"
             },
             "description": {
                 "ru": "",
@@ -77,9 +77,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 114",
+                "en": "Office 114",
+                "kz": "Кабинет 114"
             },
             "description": {
                 "ru": "",
@@ -94,9 +94,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 115",
+                "en": "Office 115",
+                "kz": "Кабинет 115"
             },
             "description": {
                 "ru": "",
@@ -111,9 +111,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 116",
+                "en": "Office 116",
+                "kz": "Кабинет 116"
             },
             "description": {
                 "ru": "",
@@ -128,9 +128,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор/Туалет (112)",
+                "en": "Corridor/Toilet (112)",
+                "kz": "Дәліз/Әжетхана (112)"
             },
             "description": {
                 "ru": "",
@@ -145,9 +145,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 112",
+                "en": "Office 112",
+                "kz": "Кабинет 112"
             },
             "description": {
                 "ru": "",
@@ -162,9 +162,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор/Туалет (113)",
+                "en": "Corridor/Toilet (113)",
+                "kz": "Дәліз/Әжетхана (113)"
             },
             "description": {
                 "ru": "",
@@ -179,9 +179,9 @@
             ],
             "type": "1_toilet",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Туалет",
+                "en": "Toilet",
+                "kz": "Әжетхана"
             },
             "description": {
                 "ru": "",
@@ -196,9 +196,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 113",
+                "en": "Office 113",
+                "kz": "Кабинет 113"
             },
             "description": {
                 "ru": "",
@@ -213,9 +213,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор/Служебный туалет",
+                "en": "Corridor/Service Toilet",
+                "kz": "Дәліз/Қызметтік әжетхана"
             },
             "description": {
                 "ru": "",
@@ -230,9 +230,9 @@
             ],
             "type": "1_service_toilet",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Служебный туалет",
+                "en": "Service Toilet",
+                "kz": "Қызметтік әжетхана"
             },
             "description": {
                 "ru": "",
@@ -247,9 +247,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (111)",
+                "en": "Corridor (111)",
+                "kz": "Дәліз (111)"
             },
             "description": {
                 "ru": "",
@@ -264,9 +264,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 111",
+                "en": "Office 111",
+                "kz": "Кабинет 111"
             },
             "description": {
                 "ru": "",
@@ -281,9 +281,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (110-Лестница)",
+                "en": "Corridor (110-Stairs)",
+                "kz": "Дәліз (110-Баспалдақ)"
             },
             "description": {
                 "ru": "",
@@ -298,9 +298,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (110-Лестница)",
+                "en": "Corridor (110-Stairs)",
+                "kz": "Дәліз (110-Баспалдақ)"
             },
             "description": {
                 "ru": "",
@@ -315,9 +315,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 110",
+                "en": "Office 110",
+                "kz": "Кабинет 110"
             },
             "description": {
                 "ru": "",
@@ -332,9 +332,9 @@
             ],
             "type": "1_stairs_right",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Лестница (правая)",
+                "en": "Stairs (right)",
+                "kz": "Баспалдақ (оң жақ)"
             },
             "description": {
                 "ru": "",
@@ -349,9 +349,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (108-109)",
+                "en": "Corridor (108-109)",
+                "kz": "Дәліз (108-109)"
             },
             "description": {
                 "ru": "",
@@ -366,9 +366,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 108",
+                "en": "Office 108",
+                "kz": "Кабинет 108"
             },
             "description": {
                 "ru": "",
@@ -383,9 +383,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 109",
+                "en": "Office 109",
+                "kz": "Кабинет 109"
             },
             "description": {
                 "ru": "",
@@ -400,9 +400,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (106)",
+                "en": "Corridor (106)",
+                "kz": "Дәліз (106)"
             },
             "description": {
                 "ru": "",
@@ -417,9 +417,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 106",
+                "en": "Office 106",
+                "kz": "Кабинет 106"
             },
             "description": {
                 "ru": "",
@@ -434,9 +434,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (104A-105)",
+                "en": "Corridor (104A-105)",
+                "kz": "Дәліз (104A-105)"
             },
             "description": {
                 "ru": "",
@@ -451,9 +451,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 104A",
+                "en": "Office 104A",
+                "kz": "Кабинет 104A"
             },
             "description": {
                 "ru": "",
@@ -468,9 +468,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 105",
+                "en": "Office 105",
+                "kz": "Кабинет 105"
             },
             "description": {
                 "ru": "",
@@ -485,9 +485,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (104)",
+                "en": "Corridor (104)",
+                "kz": "Дәліз (104)"
             },
             "description": {
                 "ru": "",
@@ -502,9 +502,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 104",
+                "en": "Office 104",
+                "kz": "Кабинет 104"
             },
             "description": {
                 "ru": "",
@@ -519,9 +519,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (103)",
+                "en": "Corridor (103)",
+                "kz": "Дәліз (103)"
             },
             "description": {
                 "ru": "",
@@ -536,9 +536,9 @@
             ],
             "type": "office",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кабинет 103",
+                "en": "Office 103",
+                "kz": "Кабинет 103"
             },
             "description": {
                 "ru": "",
@@ -553,9 +553,9 @@
             ],
             "type": "1_stairs_left",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Лестница (левая)",
+                "en": "Stairs (left)",
+                "kz": "Баспалдақ (сол жақ)"
             },
             "description": {
                 "ru": "",
@@ -570,9 +570,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (лестница слева)",
+                "en": "Corridor (left stairs)",
+                "kz": "Дәліз (сол жақ баспалдақ)"
             },
             "description": {
                 "ru": "",
@@ -587,9 +587,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (лекционные залы)",
+                "en": "Corridor (lecture halls)",
+                "kz": "Дәліз (дәріс залдары)"
             },
             "description": {
                 "ru": "",
@@ -604,9 +604,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (лекционные залы, 1 этаж)",
+                "en": "Corridor (lecture halls, 1st floor)",
+                "kz": "Дәліз (дәріс залдары, 1 қабат)"
             },
             "description": {
                 "ru": "",
@@ -621,9 +621,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (актовый зал)",
+                "en": "Corridor (assembly hall)",
+                "kz": "Дәліз (мәжіліс залы)"
             },
             "description": {
                 "ru": "",
@@ -638,9 +638,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (лекционные залы, справа)",
+                "en": "Corridor (lecture halls, right)",
+                "kz": "Дәліз (дәріс залдары, оң жақ)"
             },
             "description": {
                 "ru": "",
@@ -655,9 +655,9 @@
             ],
             "type": "1_assembly_hall",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Актовый зал",
+                "en": "Assembly Hall",
+                "kz": "Мәжіліс залы"
             },
             "description": {
                 "ru": "",
@@ -672,9 +672,9 @@
             ],
             "type": "1_lecture_halls",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Лекционные залы",
+                "en": "Lecture Halls",
+                "kz": "Дәріс залдары"
             },
             "description": {
                 "ru": "",
@@ -689,9 +689,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Коридор (кафетерий, гардероб)",
+                "en": "Corridor (cafeteria, wardrobe)",
+                "kz": "Дәліз (асхана, гардероб)"
             },
             "description": {
                 "ru": "",
@@ -706,9 +706,9 @@
             ],
             "type": "1_cafeteria",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Кафетерий",
+                "en": "Cafeteria",
+                "kz": "Асхана"
             },
             "description": {
                 "ru": "",
@@ -723,9 +723,9 @@
             ],
             "type": "1_wardrobe",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Гардероб",
+                "en": "Wardrobe",
+                "kz": "Гардероб"
             },
             "description": {
                 "ru": "",
@@ -740,9 +740,9 @@
             ],
             "type": "1_entrance",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Вход",
+                "en": "Entrance",
+                "kz": "Кіру"
             },
             "description": {
                 "ru": "",
@@ -757,9 +757,9 @@
             ],
             "type": "corridor",
             "name": {
-                "ru": "",
-                "en": "",
-                "kz": ""
+                "ru": "Главный коридор",
+                "en": "Main Corridor",
+                "kz": "Бас дәліз"
             },
             "description": {
                 "ru": "",

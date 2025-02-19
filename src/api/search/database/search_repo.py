@@ -1,12 +1,14 @@
 import base64
 import heapq
+import io
 import math
 import os
 from typing import List, Dict, Any, Optional
 
 from PIL import Image, ImageDraw
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, or_, func
+from sqlalchemy.orm import joinedload
 
 from config import DATABASE_URL
 from src.api.search.database.models import Floor, Node, Edge
@@ -48,22 +50,43 @@ class MapRepository:
             )
             return result.scalars().first()
 
+    async def search_nodes(self, term: str) -> List[Node]:
+        async with self.db.session_maker() as session:
+            result = await session.execute(
+                select(Node)
+                .options(joinedload(Node.floor))  # Eagerly load the 'floor' relationship
+                .where(
+                    or_(
+                        func.lower(Node.name_ru).contains(term.lower()),
+                        func.lower(Node.name_en).contains(term.lower()),
+                        func.lower(Node.name_kz).contains(term.lower()),
+                        func.lower(Node.description_ru).contains(term.lower()),
+                        func.lower(Node.description_en).contains(term.lower()),
+                        func.lower(Node.description_kz).contains(term.lower())
+                    ),
+                    Node.type != "corridor"  # Исключаем узлы с типом "corridor"
+                )
+            )
+            return result.scalars().all()
+
+
 def build_graph(nodes: Dict[str, Node], edges: List[Edge]) -> Dict[str, List[tuple[str, float]]]:
     """Строит граф на основе узлов и ребер, пропуская ребра с отсутствующими узлами."""
     graph = {node_name: [] for node_name in nodes}
     for edge in edges:
         if edge.source_node_name not in graph:
-            print(f"WARNING: Исходный узел '{edge.source_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
+            print(
+                f"WARNING: Исходный узел '{edge.source_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
             continue
         if edge.target_node_name not in graph:
-            print(f"WARNING: Целевой узел '{edge.target_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
+            print(
+                f"WARNING: Целевой узел '{edge.target_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
             continue
 
         # Добавляем ребро в оба направления для неориентированного графа
         graph[edge.source_node_name].append((edge.target_node_name, edge.weight or 1.0))
         graph[edge.target_node_name].append((edge.source_node_name, edge.weight or 1.0))
     return graph
-
 
 
 def dijkstra_path(graph: Dict[str, List[tuple[str, float]]], start: str, goal: str) -> List[str] | None:
@@ -143,10 +166,7 @@ def draw_path_with_arrows(image_data: str, coords_dict: Dict[str, Node], path: L
     img.save(out_path)
 
 
-import io
-
-
-# Эндпоинт
+# Эндпоинт для прокладывания маршрута
 async def get_route(start: str, target: str, building: str, language: str = "ru") -> Dict[str, Any]:
     """
     Возвращает путь между двумя локациями в здании, с изображениями для каждого этажа.
@@ -156,8 +176,6 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
     # 1. Получаем список всех этажей для данного здания
     floors = await map_repository.get_all_floors_by_building(building)
-    print(floors)
-    print(target)
     if not floors:
         raise HTTPException(status_code=404, detail="Данных для выбранного здания не найдено")
     # 2. Собираем данные графа (узлы и ребра)
@@ -234,3 +252,28 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
     # return {"path": path, "images": images}
     return {"images": images}
+
+
+# ---------------------  Added Function ---------------------
+async def get_temps(term: str, language: str = "ru") -> Dict[str, Any]:
+    """
+    Получает подсказки из базы данных на основе поискового запроса.
+    """
+    map_repository = MapRepository()
+    nodes = await map_repository.search_nodes(term)
+
+    suggestions = []
+    for node in nodes:
+        # Now it's safe to access node.floor because it was eagerly loaded
+        suggestion = {
+            "id": node.name,
+            "key": node.id,
+            "name": node.name_ru or node.name_en or node.name_kz or node.name,  # Fallback to node.name
+            "building_number": node.floor.building_number,
+            "building_name": "корпус",  # Replace with logic if needed
+            "description": node.description_ru or node.description_en or node.description_kz or "",
+        }
+        suggestions.append(suggestion)
+        print(suggestion)
+    print(suggestions)  # debugging
+    return {"suggestions": suggestions}
