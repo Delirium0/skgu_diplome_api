@@ -10,15 +10,17 @@ from collections import deque
 image_path = None
 image = None
 image_tk = None
-nodes = {}  # {'node_name': (x, y, type)}
+nodes = {}  # {'node_name': {'coords': (x, y), 'type': type, 'name': {'ru':.., 'en': ...}, 'description':{...}}}
 edges = []  # [(node1, node2, weight)]
-current_mode = "add_node"  # "add_node" или "add_edge"
+current_mode = "add_node"
 start_node = None
 end_node = None
 graph = {}
-DEFAULT_NODE_TYPE = "corridor"  # Тип узла по умолчанию
+DEFAULT_NODE_TYPE = "corridor"
+DEFAULT_LANGUAGE = "ru"  # Язык по умолчанию
+building_number = ""  # Номер здания
 
-# Функции алгоритмов поиска пути
+# Функции алгоритмов поиска пути (остаются без изменений)
 def bfs_path(graph, start, goal):
     visited = set([start])
     queue = deque([(start, [start])])
@@ -53,22 +55,24 @@ def dijkstra_path(graph, start, goal):
                 heapq.heappush(queue, (new_cost, neighbor, path + [neighbor]))
     return None
 
-# Функции отрисовки
+# Функции отрисовки (нужно немного изменить)
 def draw_nodes_and_edges(img):
     draw = ImageDraw.Draw(img)
-    for node_name, (x, y, node_type) in nodes.items():
+    for node_name, node_data in nodes.items():
+        x, y = node_data['coords']
+        node_type = node_data['type']  # Используем тип узла
         r = 5
         draw.ellipse((x - r, y - r, x + r, y + r), fill='blue')
         draw.text((x + 5, y - 5), node_name, fill='blue')
 
     for node1, node2, weight in edges:
         if node1 in nodes and node2 in nodes:
-            x1, y1, _ = nodes[node1]
-            x2, y2, _ = nodes[node2]
+            x1, y1 = nodes[node1]['coords']
+            x2, y2 = nodes[node2]['coords']
             draw.line((x1, y1, x2, y2), fill='black', width=2)
             mid_x = (x1 + x2) / 2
             mid_y = (y1 + y2) / 2
-            draw.text((mid_x, mid_y), str(weight), fill='black')  # Отображение веса ребра
+            draw.text((mid_x, mid_y), str(weight), fill='black')
 
     return img
 
@@ -81,8 +85,8 @@ def draw_path(img, path):
         node1 = path[i]
         node2 = path[i + 1]
         if node1 in nodes and node2 in nodes:
-            x1, y1, _ = nodes[node1]
-            x2, y2, _ = nodes[node2]
+            x1, y1 = nodes[node1]['coords']
+            x2, y2 = nodes[node2]['coords']
             draw.line((x1, y1, x2, y2), fill='red', width=3)
     return img
 
@@ -106,9 +110,16 @@ def add_node_click(event):
 
 
 def add_node(x, y):
-    global image, image_tk
+    global image, image_tk, building_number
     node_name = entry_node_name.get()
     node_type = combo_node_type.get()
+    name_ru = entry_name_ru.get()
+    name_en = entry_name_en.get()
+    name_kz = entry_name_kz.get()  # Добавлено поле для казахского
+    description_ru = entry_description_ru.get()
+    description_en = entry_description_en.get()
+    description_kz = entry_description_kz.get()  # Добавлено поле для казахского
+
     if not node_name:
         messagebox.showerror("Ошибка", "Введите имя узла")
         return
@@ -116,8 +127,28 @@ def add_node(x, y):
         messagebox.showerror("Ошибка", "Узел с таким именем уже существует")
         return
 
-    nodes[node_name] = (x, y, node_type)
+    nodes[node_name] = {
+        'coords': (x, y),
+        'type': node_type,
+        'name': {
+            'ru': name_ru,
+            'en': name_en,
+            'kz': name_kz,  # Сохраняем казахское название
+        },
+        'description': {
+            'ru': description_ru,
+            'en': description_en,
+            'kz': description_kz  # Сохраняем казахское описание
+        }
+    }
+
     entry_node_name.delete(0, tk.END)
+    entry_name_ru.delete(0, tk.END)
+    entry_name_en.delete(0, tk.END)
+    entry_name_kz.delete(0, tk.END)  # Очищаем поле казахского названия
+    entry_description_ru.delete(0, tk.END)
+    entry_description_en.delete(0, tk.END)
+    entry_description_kz.delete(0, tk.END)  # Очищаем поле казахского описания
     redraw_image()
 
 
@@ -145,6 +176,7 @@ def add_edge():
     entry_edge_node2.delete(0, tk.END)
     entry_edge_weight.delete(0, tk.END)
     redraw_image()
+
 
 def build_graph():
     global graph
@@ -179,41 +211,54 @@ def find_path():
 
     redraw_image(path)
 
+
 def redraw_image(path=None):
     global image, image_tk
     if image:
-        img_copy = image.copy()  # Копируем исходное изображение
+        img_copy = image.copy()
         img_copy = draw_nodes_and_edges(img_copy)
         if path:
-            img_copy = draw_path(img_copy, path)  # Рисуем путь на копии
-        image_tk = ImageTk.PhotoImage(img_copy)  # Создаем новый PhotoImage
-        canvas.itemconfig(image_on_canvas, image=image_tk)  # Обновляем изображение на канве
+            img_copy = draw_path(img_copy, path)
+        image_tk = ImageTk.PhotoImage(img_copy)
+        canvas.itemconfig(image_on_canvas, image=image_tk)
 
+def set_building_number():
+    global building_number
+    building_number = entry_building_number.get()
+    if not building_number:
+        messagebox.showerror("Ошибка", "Введите номер здания")
+        return
 
 def save_data():
+    global building_number
     data = {
         "image_path": image_path,
-        "nodes": {k: (x, y, node_type) for k, (x, y, node_type)
-                  in nodes.items()},  # сохраняем тип узла
+        "building_number": building_number,
+        "nodes": nodes,  # Сохраняем структуру узла полностью
         "edges": edges
     }
     file_path = filedialog.asksaveasfilename(defaultextension=".json",
                                                filetypes=[("JSON files", "*.json")])
     if file_path:
-        with open(file_path, "w") as f:
-            json.dump(data, f, indent=4)
+        with open(file_path, "w", encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
 
 
 def load_data():
-    global image_path, image, image_tk, nodes, edges
+    global image_path, image, image_tk, nodes, edges, building_number
     file_path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
     if file_path:
         try:
-            with open(file_path, "r") as f:
+            with open(file_path, "r", encoding='utf-8') as f:
                 data = json.load(f)
                 image_path = data["image_path"]
-                nodes = {k: tuple(v) for k, v in data["nodes"].items()}  # загружаем как tuple
+                nodes = data["nodes"]
                 edges = data["edges"]
+                building_number = data.get("building_number", "")  # Загружаем номер здания
+
+                # Обновляем поле ввода номера здания, если он есть в данных
+                entry_building_number.delete(0, tk.END)
+                entry_building_number.insert(0, building_number)
 
                 image = Image.open(image_path)
                 image_tk = ImageTk.PhotoImage(image)
@@ -243,6 +288,20 @@ button_save_data.pack(side=tk.LEFT, padx=5, pady=5)
 button_load_data = tk.Button(frame_controls, text="Загрузить граф", command=load_data)
 button_load_data.pack(side=tk.LEFT, padx=5, pady=5)
 
+# Номер здания
+frame_building_number = tk.Frame(root)
+frame_building_number.pack(side=tk.TOP, fill=tk.X)
+
+label_building_number = tk.Label(frame_building_number, text="Номер здания:")
+label_building_number.pack(side=tk.LEFT, padx=5, pady=5)
+
+entry_building_number = tk.Entry(frame_building_number)
+entry_building_number.pack(side=tk.LEFT, padx=5, pady=5)
+
+button_set_building = tk.Button(frame_building_number, text="Установить номер здания", command=set_building_number)
+button_set_building.pack(side=tk.LEFT, padx=5, pady=5)
+
+
 
 # Добавление узла
 frame_add_node = tk.Frame(root)
@@ -257,10 +316,42 @@ entry_node_name.pack(side=tk.LEFT, padx=5, pady=5)
 label_node_type = tk.Label(frame_add_node, text="Тип узла:")
 label_node_type.pack(side=tk.LEFT, padx=5, pady=5)
 
-node_types = ["corridor", "office", "stairs", "entrance", "toilet", "other"]  # Возможные типы узлов
+node_types = ["corridor", "office", "stairs", "entrance", "toilet", "other"]
 combo_node_type = tk.ttk.Combobox(frame_add_node, values=node_types)
-combo_node_type.set(DEFAULT_NODE_TYPE)  # Значение по умолчанию
+combo_node_type.set(DEFAULT_NODE_TYPE)
 combo_node_type.pack(side=tk.LEFT, padx=5, pady=5)
+
+# Многоязычные поля
+label_name_ru = tk.Label(frame_add_node, text="Название (русский):")
+label_name_ru.pack(side=tk.LEFT, padx=5, pady=5)
+entry_name_ru = tk.Entry(frame_add_node)
+entry_name_ru.pack(side=tk.LEFT, padx=5, pady=5)
+
+label_description_ru = tk.Label(frame_add_node, text="Описание (русский):")
+label_description_ru.pack(side=tk.LEFT, padx=5, pady=5)
+entry_description_ru = tk.Entry(frame_add_node)
+entry_description_ru.pack(side=tk.LEFT, padx=5, pady=5)
+
+label_name_en = tk.Label(frame_add_node, text="Название (английский):")
+label_name_en.pack(side=tk.LEFT, padx=5, pady=5)
+entry_name_en = tk.Entry(frame_add_node)
+entry_name_en.pack(side=tk.LEFT, padx=5, pady=5)
+
+label_description_en = tk.Label(frame_add_node, text="Описание (английский):")
+label_description_en.pack(side=tk.LEFT, padx=5, pady=5)
+entry_description_en = tk.Entry(frame_add_node)
+entry_description_en.pack(side=tk.LEFT, padx=5, pady=5)
+
+# Добавляем поля для казахского языка
+label_name_kz = tk.Label(frame_add_node, text="Название (казахский):")
+label_name_kz.pack(side=tk.LEFT, padx=5, pady=5)
+entry_name_kz = tk.Entry(frame_add_node)
+entry_name_kz.pack(side=tk.LEFT, padx=5, pady=5)
+
+label_description_kz = tk.Label(frame_add_node, text="Описание (казахский):")
+label_description_kz.pack(side=tk.LEFT, padx=5, pady=5)
+entry_description_kz = tk.Entry(frame_add_node)
+entry_description_kz.pack(side=tk.LEFT, padx=5, pady=5)
 
 
 # Добавление ребра
@@ -305,12 +396,11 @@ button_find_path.pack(side=tk.LEFT, padx=5, pady=5)
 # Канва для отображения изображения
 canvas = tk.Canvas(root, width=800, height=600)
 canvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-canvas.bind("<Button-1>", add_node_click)  # Привязываем клик к функции добавления узла
+canvas.bind("<Button-1>", add_node_click)
 
 image_on_canvas = canvas.create_image(0, 0, anchor=tk.NW)
 
 # Стили
-import tkinter.ttk as ttk
 style = ttk.Style()
 style.configure("TButton", padding=5, relief="raised")
 style.configure("TCombobox", padding=5)

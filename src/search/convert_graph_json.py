@@ -1,7 +1,7 @@
 import json
 
 from src.search.main import coords_floor1_5_building, floor_images_5_building
-from src.search.main import graph
+from src.search.main import graph_5_building
 
 
 # Функция для определения типа узла по его имени
@@ -49,7 +49,7 @@ def convert_to_json(coords, graph, image_path):
 
 
 # Преобразуем для первого этажа
-json_floor1 = convert_to_json(coords_floor1_5_building, graph, floor_images_5_building["1"])
+json_floor1 = convert_to_json(coords_floor1_5_building, graph_5_building, floor_images_5_building["1"])
 
 # Преобразуем для второго этажа
 

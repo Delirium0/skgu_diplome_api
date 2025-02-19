@@ -14,5 +14,5 @@ async def get_suggest(temp: str = Query(..., description="Search term")):
 
 @router.get("/route")
 async def get_routers(route: RoutePoints = Depends()):
-    result = await get_route(route.start, route.target)
+    result = await get_route(route.start, route.target, route.building)
     return result
