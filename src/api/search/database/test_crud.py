@@ -35,6 +35,7 @@ get_location_names = {
     '1_office_108': 'Кабинет 108',
     '2_hall': 'Холл',
     '2_toilet': 'Туалет',
+    'library': 'library',
     'stairs_2_left': 'Лестница (левая, 2 этаж)',
     'stairs_2_right': 'Лестница (правая, 2 этаж)',
 }

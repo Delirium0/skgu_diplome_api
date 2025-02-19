@@ -1,0 +1,75 @@
+{
+    "image_path": "C:/Users/slava_q/Desktop/бэкапы диплом/first_floor_5_compuse — копия.png",
+    "building_number": "",
+    "nodes": {
+        "efeqfqef": {
+            "coords": [
+                237,
+                336
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "eqfqefqe": {
+            "coords": [
+                485,
+                363
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "qefqefqef",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "555": {
+            "coords": [
+                655,
+                354
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "5555": {
+            "coords": [
+                915,
+                351
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "eqfeqf",
+                "en": "whrgwhgr",
+                "kz": "wrgwgr"
+            },
+            "description": {
+                "ru": "wrthhgr",
+                "en": "wrgwrg",
+                "kz": "wrgrwgwr"
+            }
+        }
+    },
+    "edges": []
+}

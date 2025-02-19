@@ -55,7 +55,7 @@ json_floor1 = convert_to_json(coords_floor1_5_building, graph_5_building, floor_
 
 
 # Сохраняем полученные JSON-структуры в файлы
-with open("floor1_building_5.json", "w", encoding="utf-8") as f:
+with open("old/floor1_building_5.json", "w", encoding="utf-8") as f:
     json.dump(json_floor1, f, indent=4, ensure_ascii=False)
 
 

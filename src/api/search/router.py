@@ -1,6 +1,7 @@
 from fastapi import routing, APIRouter, Query, Depends
 
-from src.api.search.Service import get_temps, get_route
+from src.api.search.Service import get_temps
+from src.api.search.database.search_repo import get_route
 from src.api.search.schemas import RoutePoints
 
 router = APIRouter(prefix='/search')
