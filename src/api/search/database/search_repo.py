@@ -12,7 +12,7 @@ from config import DATABASE_URL
 from src.api.search.database.models import Floor, Node, Edge
 from src.database.singleton_database import DatabaseSingleton
 
-DEBUG_SHOW_NODES = True
+DEBUG_SHOW_NODES = False
 
 
 class MapRepository:
@@ -48,15 +48,22 @@ class MapRepository:
             )
             return result.scalars().first()
 
-
-# Вспомогательные функции (перемещены для ясности)
 def build_graph(nodes: Dict[str, Node], edges: List[Edge]) -> Dict[str, List[tuple[str, float]]]:
-    """Строит граф на основе узлов и ребер."""
+    """Строит граф на основе узлов и ребер, пропуская ребра с отсутствующими узлами."""
     graph = {node_name: [] for node_name in nodes}
     for edge in edges:
-        graph[edge.source_node_name].append((edge.target_node_name, edge.weight or 1.0))  # Вес по умолчанию = 1
-        graph[edge.target_node_name].append((edge.source_node_name, edge.weight or 1.0))  # Граф неориентированный
+        if edge.source_node_name not in graph:
+            print(f"WARNING: Исходный узел '{edge.source_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
+            continue
+        if edge.target_node_name not in graph:
+            print(f"WARNING: Целевой узел '{edge.target_node_name}' не найден. Пропускаем ребро от '{edge.source_node_name}' к '{edge.target_node_name}'.")
+            continue
+
+        # Добавляем ребро в оба направления для неориентированного графа
+        graph[edge.source_node_name].append((edge.target_node_name, edge.weight or 1.0))
+        graph[edge.target_node_name].append((edge.source_node_name, edge.weight or 1.0))
     return graph
+
 
 
 def dijkstra_path(graph: Dict[str, List[tuple[str, float]]], start: str, goal: str) -> List[str] | None:
@@ -149,14 +156,15 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
     # 1. Получаем список всех этажей для данного здания
     floors = await map_repository.get_all_floors_by_building(building)
+    print(floors)
+    print(target)
     if not floors:
         raise HTTPException(status_code=404, detail="Данных для выбранного здания не найдено")
-
     # 2. Собираем данные графа (узлы и ребра)
     all_nodes: Dict[str, Node] = {}
     all_edges: List[Edge] = []
-    floor_mapping: Dict[str, str] = {}  # node_name -> floor_id
-    image_paths: Dict[int, str] = {}  # floor_id -> image_data (base64)
+    floor_mapping: Dict[str, int] = {}  # node_name -> floor_number
+    image_paths: Dict[int, str] = {}  # floor_number -> image_data (base64)
 
     for floor in floors:
         floor_nodes = await map_repository.get_nodes_by_floor_id(floor.id)
@@ -164,10 +172,10 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
         for node in floor_nodes:
             all_nodes[node.name] = node
-            floor_mapping[node.name] = floor.id  # Сопоставляем node name с floor id
+            floor_mapping[node.name] = floor.floor_number  # Сопоставляем node name с floor number
 
         all_edges.extend(floor_edges)
-        image_paths[floor.id] = floor.image_data  # Сопоставляем floor id с image data
+        image_paths[floor.floor_number] = floor.image_data  # Сопоставляем floor number с image data
 
     # 3. Строим граф
     graph = build_graph(all_nodes, all_edges)
@@ -178,24 +186,31 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
         raise HTTPException(status_code=404, detail="Путь не найден")
 
     # 5. Группируем путь по этажам
-    floor_paths: Dict[int, List[str]] = {}  # floor_id -> list of node names
+    floor_paths: Dict[int, List[str]] = {}  # floor_number -> list of node names
     for node_name in path:
-        floor_id = floor_mapping[node_name]
-        floor_paths.setdefault(floor_id, []).append(node_name)
+        floor_number = floor_mapping[node_name]
+        floor_paths.setdefault(floor_number, []).append(node_name)
 
     # 6. Генерируем изображения для каждого этажа
     images = []
-    for floor_id, floor_path in floor_paths.items():
-        image_data = image_paths.get(floor_id)
+    for floor_number, floor_path in floor_paths.items():
+        image_data = image_paths.get(floor_number)
         if not image_data:
+            print(f"Предупреждение: Нет image_data для floor_number {floor_number}")
             continue
 
-        # Получаем Node объекты для текущего этажа (вместо словаря)
-        floor_nodes = {node.name: node for node in all_nodes.values() if floor_mapping[node.name] == floor_id}
+        # Получаем floor_id, соответствующий floor_number (для floor_nodes)
+        floor_id = next((floor.id for floor in floors if floor.floor_number == floor_number), None)
+        if not floor_id:
+            print(f"Предупреждение: Нет floor_id для floor_number {floor_number}")
+            continue
+
+        # Получаем Node объекты для текущего этажа
+        floor_nodes = {node.name: node for node in all_nodes.values() if floor_mapping.get(node.name) == floor_number}
 
         # Создаем временный файл для изображения
         out_path = os.path.join(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\temp_files",
-                                f"floor_{floor_id}_path.png")  # Добавляем ".png"
+                                f"floor_{floor_number}_path.png")
 
         draw_path_with_arrows(image_data, floor_nodes, floor_path, out_path)
 
@@ -215,6 +230,7 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
             else:
                 floor_location_names[node_name] = node.name_ru or node.name_en or node.name_kz or "N/A"
 
-        images.append({"floor": floor_id, "image": img_b64, "location_names": floor_location_names})
+        images.append({"floor": floor_number, "image": img_b64, "location_names": floor_location_names})
 
-    return {"path": path, "images": images}
+    # return {"path": path, "images": images}
+    return {"images": images}

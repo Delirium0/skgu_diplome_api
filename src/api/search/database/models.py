@@ -148,12 +148,12 @@ async def load_data_to_db(db: SQLAlchemyDatabase, data: Dict, building_number: s
                     x=node_data["coords"][0],
                     y=node_data["coords"][1],
                     type=node_data.get("type"),
-                    name_ru=node_data.get("name_ru"),
-                    name_en=node_data.get("name_en"),
-                    name_kz=node_data.get("name_kz"),
-                    description_ru=node_data.get("description_ru"),
-                    description_en=node_data.get("description_en"),
-                    description_kz=node_data.get("description_kz"),
+                    name_ru=node_data.get("name").get('ru'),
+                    name_en=node_data.get("name").get('en'),
+                    name_kz=node_data.get("name").get('kz'),
+                    description_ru=node_data.get("description").get('ru'),
+                    description_en=node_data.get("description").get('en'),
+                    description_kz=node_data.get("description").get('kz'),
                 )
                 for node_name, node_data in nodes_data.items()
             ]
@@ -192,10 +192,11 @@ async def main():
     # Загрузите ваш JSON файл
     import json
 
-    with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor1_building1.json", "r") as f:
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor2_building1.json", 'r',
+              encoding='utf-8') as f:
         data = json.load(f)
 
-    await load_data_to_db(db, data, building_number="6", floor_number=1)
+    await load_data_to_db(db, data, building_number="6", floor_number=2)
 
 
 if __name__ == '__main__':
