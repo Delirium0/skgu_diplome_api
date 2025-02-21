@@ -8,10 +8,11 @@ from typing import List, Dict, Any, Optional
 from PIL import Image, ImageDraw
 from fastapi import HTTPException
 from sqlalchemy import select, or_, func
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 
 from config import DATABASE_URL
-from src.api.search.database.models import Floor, Node, Edge
+from src.api.search.database.formating import format_location_info
+from src.api.search.database.models import Floor, Node, Edge, Location
 from src.database.singleton_database import DatabaseSingleton
 
 DEBUG_SHOW_NODES = False
@@ -42,6 +43,12 @@ class MapRepository:
         async with self.db.session_maker() as session:
             result = await session.execute(select(Floor).where(Floor.building_number == building_number))
             return result.scalars().all()
+
+    async def get_location_by_building(self, building_number: str) -> Location:
+        async with self.db.session_maker() as session:
+            result = await session.execute(select(Location).join(Floor).where(Floor.building_number == building_number).options(selectinload(Location.bounds))
+                                           )
+            return result.scalar()
 
     async def get_node_by_name_and_floor_id(self, node_name: str, floor_id: int) -> Optional[Node]:
         async with self.db.session_maker() as session:
@@ -176,6 +183,8 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
     # 1. Получаем список всех этажей для данного здания
     floors = await map_repository.get_all_floors_by_building(building)
+    location = await map_repository.get_location_by_building(building)
+    location_info = format_location_info(location)
     if not floors:
         raise HTTPException(status_code=404, detail="Данных для выбранного здания не найдено")
     # 2. Собираем данные графа (узлы и ребра)
@@ -214,13 +223,13 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
     for floor_number, floor_path in floor_paths.items():
         image_data = image_paths.get(floor_number)
         if not image_data:
-            print(f"Предупреждение: Нет image_data для floor_number {floor_number}")
+            # print(f"Предупреждение: Нет image_data для floor_number {floor_number}")
             continue
 
         # Получаем floor_id, соответствующий floor_number (для floor_nodes)
         floor_id = next((floor.id for floor in floors if floor.floor_number == floor_number), None)
         if not floor_id:
-            print(f"Предупреждение: Нет floor_id для floor_number {floor_number}")
+            # print(f"Предупреждение: Нет floor_id для floor_number {floor_number}")
             continue
 
         # Получаем Node объекты для текущего этажа
@@ -250,11 +259,9 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
 
         images.append({"floor": floor_number, "image": img_b64, "location_names": floor_location_names})
 
-    # return {"path": path, "images": images}
-    return {"images": images}
+    return {"images": images, "location": location_info}
 
 
-# ---------------------  Added Function ---------------------
 async def get_temps(term: str, language: str = "ru") -> Dict[str, Any]:
     """
     Получает подсказки из базы данных на основе поискового запроса.
@@ -264,16 +271,14 @@ async def get_temps(term: str, language: str = "ru") -> Dict[str, Any]:
 
     suggestions = []
     for node in nodes:
-        # Now it's safe to access node.floor because it was eagerly loaded
         suggestion = {
             "id": node.name,
             "key": node.id,
-            "name": node.name_ru or node.name_en or node.name_kz or node.name,  # Fallback to node.name
+            "name": node.name_ru or node.name_en or node.name_kz or node.name,
             "building_number": node.floor.building_number,
-            "building_name": "корпус",  # Replace with logic if needed
+            "building_name": "корпус",
             "description": node.description_ru or node.description_en or node.description_kz or "",
         }
         suggestions.append(suggestion)
-        print(suggestion)
-    print(suggestions)  # debugging
+
     return {"suggestions": suggestions}

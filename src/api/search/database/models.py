@@ -1,11 +1,14 @@
-import base64
-from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, Identity, UniqueConstraint
-from sqlalchemy.orm import sessionmaker, relationship, Mapped, mapped_column
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects.postgresql import insert
-from typing import List, Dict, Optional
-from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
+import base64
+from typing import AsyncGenerator
+from typing import List, Dict, Optional
+
+from sqlalchemy import Identity, UniqueConstraint
+from sqlalchemy import MetaData, NullPool
+from sqlalchemy import String, Float, ForeignKey, Integer
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 Base = declarative_base()
 
@@ -20,8 +23,13 @@ class Floor(Base):
     building_number: Mapped[str] = mapped_column(String, nullable=False)
     floor_number: Mapped[int] = mapped_column(Integer, nullable=False, comment="Номер этажа")
     image_data: Mapped[str] = mapped_column(String, nullable=False, comment="Изображение этажа в формате Base64")
+
+    location_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("locations.id", ondelete="SET NULL"), nullable=True)
+
     nodes: Mapped[List["Node"]] = relationship(back_populates="floor")
     edges: Mapped[List["Edge"]] = relationship(back_populates="floor")
+    location: Mapped["Location"] = relationship("Location", back_populates="floors")
+
 
 
 class Node(Base):
@@ -48,6 +56,36 @@ class Node(Base):
     __table_args__ = (UniqueConstraint('floor_id', 'name', name='unique_node_name_per_floor'),)
 
 
+
+class Location(Base):
+    """
+    Модель локации (наружные точки, здания).
+    """
+    __tablename__ = "locations"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    lat: Mapped[float] = mapped_column(Float, nullable=False)
+    lng: Mapped[float] = mapped_column(Float, nullable=False)
+    title: Mapped[str] = mapped_column(nullable=False)
+    type: Mapped[str] = mapped_column(nullable=False)
+    address: Mapped[str] = mapped_column(nullable=False)
+    time_start: Mapped[str] = mapped_column(nullable=True)
+    time_end: Mapped[str] = mapped_column(nullable=True)
+    main_icon: Mapped[str | None] = mapped_column(nullable=True)
+
+    bounds: Mapped[list["Bounds"]] = relationship("Bounds", back_populates="location", cascade="all, delete-orphan")
+    floors: Mapped[List["Floor"]] = relationship("Floor", back_populates="location", cascade="all, delete-orphan")
+class Bounds(Base):
+    __tablename__ = "bounds"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    location_id: Mapped[int] = mapped_column(Integer, ForeignKey("locations.id", ondelete="CASCADE"))
+    lat: Mapped[float] = mapped_column(Float, nullable=False)
+    lng: Mapped[float] = mapped_column(Float, nullable=False)
+
+    location: Mapped["Location"] = relationship("Location", back_populates="bounds")
+
+
 class Edge(Base):
     """
     Модель ребра, соединяющего два узла на этаже.
@@ -66,16 +104,6 @@ class Edge(Base):
         UniqueConstraint('floor_id', 'source_node_name', 'target_node_name', name='unique_edge_per_floor'),)
 
 
-from sqlalchemy import MetaData, NullPool
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from typing import AsyncGenerator
-
-
-# from src.database.database import DatabaseInterface # Убрал, потому что нет примера DatabaseInterface
-
-
-# подключение именно для алхимии
 class SQLAlchemyDatabase:
     def __init__(self, db_url: str):
         self.db_url = db_url
@@ -165,7 +193,7 @@ async def load_data_to_db(db: SQLAlchemyDatabase, data: Dict, building_number: s
                     floor_id=floor.id,
                     source_node_name=edge_data[0],
                     target_node_name=edge_data[1],
-                    weight=edge_data[2] if len(edge_data) > 2 else None,  # Вес ребра может отсутствовать
+                    weight=edge_data[2] if len(edge_data) > 2 else None,
                 )
                 for edge_data in edges_data
             ]
