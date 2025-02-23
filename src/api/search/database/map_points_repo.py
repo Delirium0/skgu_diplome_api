@@ -13,6 +13,7 @@ from sqlalchemy.orm import joinedload
 
 from config import DATABASE_URL
 from src.api.search.database.models import Floor, Node, Edge, Location, Bounds
+from src.api.locations.service import image_to_base64
 from src.database.singleton_database import DatabaseSingleton
 
 DEBUG_SHOW_NODES = False
@@ -24,7 +25,7 @@ class MapPointsRepository:
 
     async def add_location(self, lat: float, lng: float, title: str, type_: str, address: str,
                            time_start: str | None, time_end: str | None, main_icon: str | None,
-                           bounds: list[tuple[float, float]]):
+                           bounds: list[tuple[float, float]], building_type: str | None, building_type_name_ru: str | None):
         async with self.db.session_maker() as session:
             async with session.begin():
                 location = Location(
@@ -36,6 +37,8 @@ class MapPointsRepository:
                     time_start=time_start,
                     time_end=time_end,
                     main_icon=main_icon,
+                    building_type=building_type,
+                    building_type_name_ru=building_type_name_ru,
                     bounds=[Bounds(lat=b[0], lng=b[1]) for b in bounds]
                 )
                 session.add(location)
@@ -86,6 +89,25 @@ async def test():
     #         (54.874824, 69.134197)
     #     ]
     # )
+    image_path = r'E:\PycharmProjects\skgu_diplome_api\src\api\locations\assets\people-at-the-table-svgrepo-com.svg'
+    await repo.add_location(
+        lat=54.875119,
+        lng=69.134629,
+        title="Kozybaev University корпус 5",
+        type_="square",
+        address="СКУ им. М. Козыбаева Улица Интернациональная, 26 5 корпус",
+        time_start="ПН-ПТ",
+        time_end="09:00-18:00",
+        building_type_name_ru="тест",
+        building_type="тест",
+        main_icon=image_to_base64(image_path),
+        bounds=[
+            (54.875559, 69.132989),
+            (54.875646, 69.133182),
+            (54.874923, 69.134369),
+            (54.874824, 69.134197)
+        ]
+    )
     pass
 
 

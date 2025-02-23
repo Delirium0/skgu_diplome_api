@@ -9,7 +9,7 @@ DB_USER = config("DB_USER")
 DB_PASS = config("DB_PASS")
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
+DEBUG = False
 API_TOKEN = config("API_TOKEN")
 LANG_MESSAGES = config("LANG_MESSAGES")
 TELEGRAM_ADMIN_ID = int(config("TELEGRAM_ADMIN_ID"))

@@ -24,12 +24,12 @@ class Floor(Base):
     floor_number: Mapped[int] = mapped_column(Integer, nullable=False, comment="Номер этажа")
     image_data: Mapped[str] = mapped_column(String, nullable=False, comment="Изображение этажа в формате Base64")
 
-    location_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("locations.id", ondelete="SET NULL"), nullable=True)
+    location_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("locations.id", ondelete="SET NULL"),
+                                                    nullable=True)
 
     nodes: Mapped[List["Node"]] = relationship(back_populates="floor")
     edges: Mapped[List["Edge"]] = relationship(back_populates="floor")
     location: Mapped["Location"] = relationship("Location", back_populates="floors")
-
 
 
 class Node(Base):
@@ -56,7 +56,6 @@ class Node(Base):
     __table_args__ = (UniqueConstraint('floor_id', 'name', name='unique_node_name_per_floor'),)
 
 
-
 class Location(Base):
     """
     Модель локации (наружные точки, здания).
@@ -73,8 +72,13 @@ class Location(Base):
     time_end: Mapped[str] = mapped_column(nullable=True)
     main_icon: Mapped[str | None] = mapped_column(nullable=True)
 
+    building_type: Mapped[str] = mapped_column(String, nullable=True)
+    building_type_name_ru: Mapped[str] = mapped_column(String, nullable=True)
+
     bounds: Mapped[list["Bounds"]] = relationship("Bounds", back_populates="location", cascade="all, delete-orphan")
     floors: Mapped[List["Floor"]] = relationship("Floor", back_populates="location", cascade="all, delete-orphan")
+
+
 class Bounds(Base):
     __tablename__ = "bounds"
 

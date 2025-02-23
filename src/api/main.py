@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-
-from src.api.search.router import router as router_search
 from fastapi.middleware.cors import CORSMiddleware
+
+from src.api.locations.router import router as router_locations
+from src.api.search.router import router as router_search
 
 app = FastAPI()
 app.add_middleware(
@@ -12,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],  # Разрешить все заголовки
 )
 app.include_router(router_search)
+app.include_router(router_locations)
 
 if __name__ == "__main__":
     import uvicorn
