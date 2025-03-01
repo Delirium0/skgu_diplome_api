@@ -7,4 +7,4 @@ def image_to_base64(image_path):
         if image_path.lower().endswith(".svg"):
             return f"data:image/svg+xml;base64,{encoded_string}"
         else:
-            return f"data:image/png;base64,{encoded_string}"  # Или jpeg, в зависимости от формата
+            return f"data:image/png;base64,{encoded_string}"
