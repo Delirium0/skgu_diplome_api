@@ -21,4 +21,3 @@ class SQLAlchemyDatabase(DatabaseInterface):
                 yield session
             finally:
                 await session.close()
-
