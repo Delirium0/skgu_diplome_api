@@ -7,6 +7,7 @@ DB_PORT = config("DB_PORT")
 DB_NAME = config("DB_NAME")
 DB_USER = config("DB_USER")
 DB_PASS = config("DB_PASS")
+PASSWORD = config("PASSWORD")
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 DEBUG = False
@@ -22,6 +23,7 @@ chat_links = chats.split(",") if chats else []
 
 RABBITMQ_URL = config("RABBITMQ_URL")
 TEST = config("TEST")
+TEST_MODE = config("TEST_MODE")
 CHANNEL_NOTIFICATION_ID = int(config("CHANNEL_NOTIFICATION_ID"))
 ID_ADMIN = str(config('ID_ADMIN'))
 ERROR_BOT_TOKEN = config('ERROR_BOT_TOKEN')

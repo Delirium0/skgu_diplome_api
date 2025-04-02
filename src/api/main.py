@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.locations.router import router as router_locations
 from src.api.search.router import router as router_search
+from src.api.schedule.router import router as schedule_router
 
 app = FastAPI()
 app.add_middleware(
@@ -14,6 +15,7 @@ app.add_middleware(
 )
 app.include_router(router_search)
 app.include_router(router_locations)
+app.include_router(schedule_router)
 
 if __name__ == "__main__":
     import uvicorn
