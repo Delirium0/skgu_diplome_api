@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-Base = declarative_base()
+from src.database.database import Base
 
 
 class Floor(Base):
@@ -221,7 +221,6 @@ async def main():
 
     await create_db_and_tables(db)
 
-    # Загрузите ваш JSON файл
     import json
     # корпус 5 этаж 1
     with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor1_building_5.json", 'r',
