@@ -1,7 +1,47 @@
-import re
+from typing import Dict, List
 
 from bs4 import BeautifulSoup
-from typing import Dict, List
+
+
+async def create_schedule_url_fstring_unsafe(base_url: str, selected_options: dict) -> str:
+    """
+    Создает URL с помощью f-string (БЕЗ URL-КОДИРОВАНИЯ - ОПАСНО!).
+    Использовать только если уверены в безопасности значений параметров.
+    """
+    return (
+        f"{base_url}?"
+        f"Opera=4"
+        f"&Faculty={selected_options.get('cmbFaculties', '0')}"
+        f"&EduForm={selected_options.get('cmbEduForms', '0')}"
+        f"&Group={selected_options.get('cmbGroup', '0')}"
+        f"&Chair={selected_options.get('cmbChairs', '0')}"
+        f"&Year={selected_options.get('cmbYear', '0')}"
+        f"&Semester={selected_options.get('cmbSemester', '0')}"
+        f"&Period={selected_options.get('cmbPeriod', '0')}"
+        f"&Curs={selected_options.get('cmbCurs', '0')}"
+        f"&isLangRu={selected_options.get('cmbisLangRu', '0')}"
+        f"&IDTeacher={selected_options.get('cmbTeacher', '0')}"
+        f"&Speciality={selected_options.get('cmbSpeciality', '0')}"
+    )
+
+# Пример использования (с теми же parsed_params):
+
+async def parser_student_info_schedule_from_html(html_data):
+    soup = BeautifulSoup(html_data, 'lxml')
+
+    selected_options = {}
+    select_elements = soup.find_all('select')
+
+    for select in select_elements:
+        select_name = select.get('name')
+        if not select_name:  # Если вдруг у select нет атрибута name, пропускаем
+            continue
+
+        selected_option = select.find('option', selected=True)
+        if selected_option:
+            selected_value = selected_option.get('value')  # Извлекаем value атрибут
+            selected_options[select_name] = selected_value
+    return selected_options
 
 
 async def parse_student_info_from_html(html_data):

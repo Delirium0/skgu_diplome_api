@@ -1,3 +1,4 @@
+import datetime
 import re
 
 from bs4 import BeautifulSoup
@@ -67,7 +68,6 @@ def parse_schedule_from_page(html_data):
     soup = BeautifulSoup(html_data, 'lxml')
     table = soup.find('table', border='1')
 
-
     if not table:
         return None
 
@@ -81,9 +81,6 @@ def parse_schedule_from_page(html_data):
             print(f"Error parsing row: {e}")
 
     return schedule
-
-
-import datetime
 
 
 def get_current_lesson(schedule_data):
