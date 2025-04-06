@@ -24,6 +24,7 @@ async def create_schedule_url_fstring_unsafe(base_url: str, selected_options: di
         f"&Speciality={selected_options.get('cmbSpeciality', '0')}"
     )
 
+
 # Пример использования (с теми же parsed_params):
 
 async def parser_student_info_schedule_from_html(html_data):
@@ -145,3 +146,8 @@ async def parse_exams_table(html_content: str) -> List[Dict[str, Dict]]:
         exams_data.append(exams_data_entry)
 
     return exams_data
+
+
+async def auth_check(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    print(soup)

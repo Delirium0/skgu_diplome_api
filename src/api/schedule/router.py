@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+import traceback
+
+from fastapi import APIRouter, Depends
 from fastapi import FastAPI, HTTPException, Query
 from typing import List, Dict, Optional
 import re
@@ -10,15 +12,20 @@ import requests
 from requests_ntlm import HttpNtlmAuth
 
 from config import PASSWORD, TEST_MODE  # Ensure config.py with PASSWORD is in the same directory or accessible
+from src.api.auth.security import security
+from src.api.auth.service import get_current_user
+from src.api.auth.user_repo import user_repository
 from src.api.schedule.parsing_utils import parse_student_info_from_html, parse_exams_table, \
     parser_student_info_schedule_from_html, create_schedule_url_fstring_unsafe
 from src.api.schedule.schedule import parse_schedule_from_page, get_current_lesson
 from src.api.schedule.utils import parsing_evaluations, parsing_user_id, parsing_rating_group
 
-router = APIRouter(prefix='/schedule')
+router = APIRouter(prefix='/schedule', tags=["Schedule"])
 
 
-async def fetch_content_with_ntlm_auth(url: str, user_login: str, user_pass: str) -> str:
+async def fetch_content_with_ntlm_auth(url: str, user_login: str, user_pass: str) -> str | bool:
+    if TEST_MODE == '1':
+        return True
     domain = ''
     session = requests.Session()
     session.auth = HttpNtlmAuth(domain + '\\' + user_login, user_pass)
@@ -28,6 +35,14 @@ async def fetch_content_with_ntlm_auth(url: str, user_login: str, user_pass: str
         encoding = chardet.detect(response.content)['encoding']
         decoded_content = response.content.decode(encoding)
         return decoded_content
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 401:
+            print("Ошибка авторизации (401 Unauthorized)")
+            return False  # Возвращаем False при 401 ошибке
+        else:
+            print(f"HTTP error: {e}")  # Обработка других HTTP ошибок
+            raise HTTPException(status_code=e.response.status_code,
+                                detail=f"Failed to fetch data from URL: {e}")  # Используем код ошибки из response
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch data from URL: {e}")
@@ -36,8 +51,12 @@ async def fetch_content_with_ntlm_auth(url: str, user_login: str, user_pass: str
         raise HTTPException(status_code=500, detail=f"Failed to decode content: {e}")
 
 
-@router.post("/schedule/", response_model=Dict)
-async def get_schedule_endpoint(user_login: str = Query(...), user_pass: str = Query(...)):
+@router.post("/schedule/", response_model=Dict, dependencies=[Depends(security.access_token_required)])
+async def get_schedule_endpoint(current_user=Depends(get_current_user)):
+
+    url = f'https://is.ku.edu.kz/e-Rectorat/controls/ac_schedule_out.asp'
+    user_login = current_user.login
+    user_pass = current_user.password_no_hash
     if TEST_MODE == '2':
         results = {
             "results": [
@@ -450,19 +469,37 @@ async def get_schedule_endpoint(user_login: str = Query(...), user_pass: str = Q
             ]
         }
         return results
-    url = f'https://is.ku.edu.kz/e-Rectorat/controls/ac_schedule_out.asp'
-    content = await fetch_content_with_ntlm_auth(url, user_login, user_pass)
+    if current_user.group_id is None or current_user.cmbPeriod is None or current_user.semester is None or current_user.year is None:
 
-    student_info = await parser_student_info_schedule_from_html(content)
+        content = await fetch_content_with_ntlm_auth(url, user_login, user_pass)
 
-    print(student_info)
+        student_info = await parser_student_info_schedule_from_html(content)
+        cmbPeriod = student_info.get('cmbPeriod')
+        if cmbPeriod:
+            cmbPeriod = datetime.datetime.strptime(student_info.get('cmbPeriod'), '%d.%m.%Y').date()
+        else:
+            cmbPeriod = None
+        user_info = {
+            'group_id': int(student_info.get('cmbGroup')),
+            'cmbPeriod': cmbPeriod,
+            'semester': int(student_info.get('cmbSemester')),
+            'year': int(student_info.get('cmbYear')),
+        }
+        await user_repository.update_user(current_user.id, user_info)
+        print(student_info)
+    else:
+        student_info = {
+            'cmbYear': current_user.year,
+            'cmbPeriod': f'{current_user.cmbPeriod}',
+            'cmbSemester': current_user.semester,
+            'cmbGroup': current_user.group_id}
+
     schedule_url_fstring = await create_schedule_url_fstring_unsafe(url, student_info)
     print(schedule_url_fstring)
     await asyncio.sleep(1)
     content = await fetch_content_with_ntlm_auth(schedule_url_fstring, user_login, user_pass)
 
     results = parse_schedule_from_page(content)
-
 
     return {"results": results}
 
@@ -475,8 +512,10 @@ async def get_exams_evaluations_endpoint(user_login: str = Query(...), user_pass
     return {"results": result}
 
 
-@router.post("/evaluations/", response_model=List[Dict])
-async def get_evaluations_endpoint(user_login: str = Query(...), user_pass: str = Query(...)):
+@router.post("/evaluations/", response_model=List[Dict], dependencies=[Depends(security.access_token_required)])
+async def get_evaluations_endpoint(current_user=Depends(get_current_user)):
+    user_login = current_user.login
+    user_pass = current_user.password_no_hash
     if TEST_MODE == '2':
         test_data = [
             {
@@ -582,11 +621,23 @@ async def get_evaluations_endpoint(user_login: str = Query(...), user_pass: str 
         ]
         return test_data
     url = f'https://is.ku.edu.kz/E-Rectorat/ratings/ratingviewing.asp'
-    content = await fetch_content_with_ntlm_auth(url, user_login, user_pass)
-    student_info = await parse_student_info_from_html(content)
-    print(student_info)
-    if student_info is None:
-        return {"results": None}
+    if current_user.student_id is None:
+
+        content = await fetch_content_with_ntlm_auth(url, user_login, user_pass)
+        student_info = await parse_student_info_from_html(content)
+        print(student_info)
+        if student_info is None:
+            return {"results": None}
+        user_info = {
+            'student_id': int(student_info.get('student_id')),
+        }
+        await user_repository.update_user(current_user.id, user_info)
+    else:
+        student_info = {
+            'year': current_user.year,
+            'semester': current_user.semester,
+            'student_id': current_user.student_id,
+        }
     await asyncio.sleep(1)
     evaluations_url = f'https://is.ku.edu.kz/E-Rectorat/ratings/RatingViewingPrint.asp?Year={student_info.get("year")}&Semester={student_info.get("semester")}&IDStudent={student_info.get("student_id")}&iFlagStudent=0'
 

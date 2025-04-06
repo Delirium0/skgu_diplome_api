@@ -3,7 +3,7 @@ from fastapi import APIRouter, Query, Depends
 from src.api.search.schemas import RoutePoints
 from src.api.search.service import get_route, get_temps, get_route_suggestions
 
-router = APIRouter(prefix='/search')
+router = APIRouter(prefix='/search', tags=["Search"])
 
 
 @router.get('/suggest')

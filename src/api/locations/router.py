@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from src.api.locations.locations_repo import loc_repo
 from src.api.locations.schemas import LocationsInfo, LocationInfo, LocationCreate
 
-router = APIRouter(prefix='/locations')
+router = APIRouter(prefix='/locations', tags=["Locations"])
 
 
 @router.get('/locations', response_model=List[LocationsInfo])
