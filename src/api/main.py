@@ -5,10 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.api.auth.router import router as auth_router
+from src.api.events.router import router as events_router
 from src.api.locations.router import router as router_locations
 from src.api.schedule.router import router as schedule_router
 from src.api.search.router import router as router_search
-from src.api.services.important_links.router import router as important_links
+from src.api.services.important_links.router import router as important_links_router
 
 app = FastAPI()
 app.add_middleware(
@@ -21,8 +22,9 @@ app.add_middleware(
 app.include_router(router_search)
 app.include_router(router_locations)
 app.include_router(schedule_router)
-app.include_router(important_links)
+app.include_router(important_links_router)
 app.include_router(auth_router)
+app.include_router(events_router)
 
 
 @app.exception_handler(MissingTokenError)
