@@ -1,12 +1,12 @@
-from typing import List, Optional
+from typing import Optional
 
-from sqlalchemy import select, or_, func
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 from config import DATABASE_URL
-from src.api.search.database.models import Floor, Node, Edge, Location
+from src.api.locations.schemas import LocationCreate
+from src.api.search.database.models import Location
 from src.database.singleton_database import DatabaseSingleton
-from src.api.locations.schemas import LocationsInfo, LocationCreate
 
 
 class LocationsRepository:
@@ -36,6 +36,16 @@ class LocationsRepository:
             await session.commit()
             await session.refresh(location)
             return location
+
+    async def get_location_by_id(self, location_id: int) -> Optional[Location]:
+        """Gets a specific location by its ID, including related floors."""
+        async with self.db.session_maker() as session:
+            result = await session.execute(
+                select(Location)
+                .where(Location.id == location_id)
+                .options(selectinload(Location.floors))  # Загружаем связанные этажи
+            )
+            return result.scalar_one_or_none()
 
 
 loc_repo = LocationsRepository()

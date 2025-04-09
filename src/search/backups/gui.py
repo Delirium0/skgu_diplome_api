@@ -12,8 +12,7 @@ image = None
 image_tk = None
 nodes = {}  # {'node_name': {'coords': (x, y), 'type': type, 'name': {'ru':.., 'en': ...}, 'description':{...}}}
 edges = []  # [(node1, node2, weight)]
-current_mode = "add_node" # Режимы: "add_node", "add_edge" # Изменено: добавили режим
-start_node_edge = None  # Первый узел для ребра (при добавлении ребра кликами) # Изменено: добавили переменную для выбора узла ребра
+current_mode = "add_node"
 start_node = None
 end_node = None
 graph = {}
@@ -61,14 +60,9 @@ def draw_nodes_and_edges(img):
     draw = ImageDraw.Draw(img)
     for node_name, node_data in nodes.items():
         x, y = node_data['coords']
-        node_type = node_data['type']
+        node_type = node_data['type']  # Используем тип узла
         r = 5
-        node_color = 'blue' # Цвет узла по умолчанию
-        if current_mode == "add_edge" and start_node_edge == node_name: # Подсветка выбранного узла при добавлении ребра
-            node_color = 'green' # Цвет подсветки
-            r = 8 # Увеличим радиус для наглядности
-
-        draw.ellipse((x - r, y - r, x + r, y + r), fill=node_color)
+        draw.ellipse((x - r, y - r, x + r, y + r), fill='blue')
         draw.text((x + 5, y - 5), node_name, fill='blue')
 
     for node1, node2, weight in edges:
@@ -96,15 +90,6 @@ def draw_path(img, path):
             draw.line((x1, y1, x2, y2), fill='red', width=3)
     return img
 
-# Функция для определения узла по координатам клика
-def find_node_at_coords(x, y, radius=10): # Увеличим радиус для удобства кликов
-    for node_name, node_data in nodes.items():
-        node_x, node_y = node_data['coords']
-        if (node_x - x)**2 + (node_y - y)**2 <= radius**2:
-            return node_name
-    return None
-
-
 # Функции обработки событий
 def load_image():
     global image_path, image, image_tk
@@ -118,36 +103,10 @@ def load_image():
 
 
 def add_node_click(event):
-    global image, start_node_edge, current_mode
-
-    x, y = event.x, event.y
-
+    global image
     if current_mode == "add_node":
+        x, y = event.x, event.y
         add_node(x, y)
-    elif current_mode == "add_edge":
-        clicked_node = find_node_at_coords(x, y)
-        if clicked_node:
-            if start_node_edge is None:
-                start_node_edge = clicked_node
-                messagebox.showinfo("Информация", f"Выбран первый узел для ребра: {start_node_edge}. Теперь выберите второй узел.")
-                redraw_image() # Обновляем изображение для подсветки узла
-            else:
-                end_node_edge = clicked_node
-                if start_node_edge == end_node_edge:
-                    messagebox.showerror("Ошибка", "Начальный и конечный узлы ребра должны быть разными.")
-                    start_node_edge = None  # Сбросить выбор
-                    redraw_image() # Обновляем изображение для снятия подсветки
-                    return
-
-                entry_edge_node1.delete(0, tk.END) # Автоматически заполняем поля ввода ребер
-                entry_edge_node2.delete(0, tk.END)
-                entry_edge_node1.insert(0, start_node_edge)
-                entry_edge_node2.insert(0, end_node_edge)
-                start_node_edge = None # Сбрасываем после использования
-                redraw_image() # Обновляем изображение для снятия подсветки
-                messagebox.showinfo("Информация", f"Выбран второй узел для ребра: {end_node_edge}. Введите вес ребра и нажмите 'Добавить ребро'.")
-        else:
-            messagebox.showinfo("Информация", "Кликните на существующий узел, чтобы выбрать его для ребра.")
 
 
 def add_node(x, y):
@@ -312,15 +271,6 @@ def load_data():
         except json.JSONDecodeError:
             messagebox.showerror("Ошибка", "Ошибка чтения JSON файла.")
 
-def set_mode(mode):
-    global current_mode, start_node_edge
-    current_mode = mode
-    start_node_edge = None # Сбрасываем выбор узлов при смене режима
-    redraw_image() # Обновляем изображение, чтобы убрать подсветку, если была
-    if current_mode == "add_edge":
-        messagebox.showinfo("Информация", "Режим добавления ребер. Кликните на первый узел, затем на второй.")
-
-
 # GUI
 root = tk.Tk()
 root.title("Редактор графа для поиска пути")
@@ -337,21 +287,6 @@ button_save_data.pack(side=tk.LEFT, padx=5, pady=5)
 
 button_load_data = tk.Button(frame_controls, text="Загрузить граф", command=load_data)
 button_load_data.pack(side=tk.LEFT, padx=5, pady=5)
-
-# Режим работы
-frame_mode = tk.Frame(frame_controls) # Отдельный фрейм для режимов
-frame_mode.pack(side=tk.LEFT, padx=5, pady=5)
-
-mode_var = tk.StringVar(value="add_node") # По умолчанию режим добавления узлов
-
-radio_add_node = tk.Radiobutton(frame_mode, text="Добавить узел", variable=mode_var, value="add_node",
-                                 command=lambda: set_mode("add_node"))
-radio_add_node.pack(side=tk.LEFT)
-
-radio_add_edge = tk.Radiobutton(frame_mode, text="Добавить ребро", variable=mode_var, value="add_edge",
-                                 command=lambda: set_mode("add_edge"))
-radio_add_edge.pack(side=tk.LEFT)
-
 
 # Номер здания
 frame_building_number = tk.Frame(root)

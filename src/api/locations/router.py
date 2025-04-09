@@ -1,8 +1,11 @@
+import time
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, HTTPException
+
 from src.api.locations.locations_repo import loc_repo
-from src.api.locations.schemas import LocationsInfo, LocationInfo, LocationCreate
+from src.api.locations.schemas import LocationsInfo, LocationInfo, LocationCreate, LocationInfoDetail, \
+    FloorInfo  # Import FloorInfo
 
 router = APIRouter(prefix='/locations', tags=["Locations"])
 
@@ -42,5 +45,32 @@ async def create_location_endpoint(location_data: LocationCreate):
         main_icon=location.main_icon,
         building_type=location.building_type,
         building_type_name_ru=location.building_type_name_ru
+    )
+    return location_info
+
+
+@router.get('/locations/{location_id}', response_model=LocationInfoDetail)
+async def get_location_by_id_endpoint(location_id: int):
+    """Gets a specific location by ID, including floors."""
+    location = await loc_repo.get_location_by_id(location_id)
+    if not location:
+        raise HTTPException(status_code=404, detail="Location not found")
+
+    floor_info_list = []
+    if location.floors:
+        floor_info_list = [FloorInfo.model_validate(floor) for floor in location.floors]
+    location_info = LocationInfoDetail(
+        id=location.id,
+        lat=location.lat,
+        lng=location.lng,
+        title=location.title,
+        type=location.type,
+        address=location.address,
+        time_start=location.time_start,
+        time_end=location.time_end,
+        main_icon=location.main_icon,
+        building_type=location.building_type,
+        building_type_name_ru=location.building_type_name_ru,
+        floors=floor_info_list
     )
     return location_info

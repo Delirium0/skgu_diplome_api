@@ -7,7 +7,6 @@ from sqlalchemy import Identity, UniqueConstraint
 from sqlalchemy import MetaData, NullPool
 from sqlalchemy import String, Float, ForeignKey, Integer
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.database import Base
@@ -151,6 +150,9 @@ def image_to_base64(image_path: str) -> str:
     return encoded_string
 
 
+from sqlalchemy import delete, select
+
+
 async def load_data_to_db(db: SQLAlchemyDatabase, data: Dict, building_number: str, floor_number: int):
     """
     Загружает данные из JSON в базу данных.
@@ -249,7 +251,53 @@ async def main():
 
     await load_data_to_db(db, data, building_number="6", floor_number=3)
 
+
+async def delete_floor_data(db: SQLAlchemyDatabase, building_number: str, floor_number: int):
+    """
+    Удаляет данные этажа из базы данных по номеру здания и этажа.
+    """
+    async for session in db.get_session():
+        try:
+            # 1. Находим этаж, который нужно удалить
+            query = select(Floor).where(Floor.building_number == building_number, Floor.floor_number == floor_number)
+            result = await session.execute(query)
+            floor_to_delete = result.scalar_one_or_none()
+
+            if floor_to_delete:
+                floor_id_to_delete = floor_to_delete.id
+
+                # 2. Удаляем связанные Node и Edge (важно сделать это ПЕРЕД удалением Floor)
+                delete_nodes_query = delete(Node).where(Node.floor_id == floor_id_to_delete)
+                await session.execute(delete_nodes_query)
+
+                delete_edges_query = delete(Edge).where(Edge.floor_id == floor_id_to_delete)
+                await session.execute(delete_edges_query)
+
+                # 3. Удаляем сам этаж
+                delete_floor_query = delete(Floor).where(Floor.id == floor_id_to_delete)
+                await session.execute(delete_floor_query)
+
+                await session.commit()
+                print(f"Данные для здания '{building_number}', этажа '{floor_number}' успешно удалены.")
+            else:
+                print(f"Этаж с зданием '{building_number}' и этажом '{floor_number}' не найден.")
+
+        except Exception as e:
+            await session.rollback()  # Откатываем транзакцию в случае ошибки
+            print(f"Ошибка при удалении данных: {e}")
+            raise
+
+
+async def main_delete():
+    from config import DATABASE_URL  # Убедитесь, что у вас есть config.py с DATABASE_URL
+    db = DatabaseSingleton.get_instance(DATABASE_URL)
+
+    # Укажите номер здания и этаж, которые нужно удалить
+    building_number_to_delete = "6"  # Замените на номер вашего тестового здания
+    floor_number_to_delete = 3  # Замените на номер вашего тестового этажа
+
+    await delete_floor_data(db, building_number_to_delete, floor_number_to_delete)
+
+
 if __name__ == '__main__':
-    asyncio.run(main())
-
-
+    asyncio.run(main_delete())
