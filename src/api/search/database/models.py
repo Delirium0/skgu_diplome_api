@@ -276,14 +276,36 @@ async def main():
     #     data = json.load(f)
     #
     # await load_data_to_db(db, data, building_number="6", floor_number=4)
+
     # корпус 5 этаж 2
 
-    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_5_floor_2.json", 'r',
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_5_floor_2.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="5", floor_number=2)
+
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\buiding_5_floor_3.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="5", floor_number=3)
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_5_floor_4.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="5", floor_number=4)
+    #
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_4_floor_1.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="4", floor_number=1)
+
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_4_floor_2.json", 'r',
               encoding='utf-8') as f:
         data = json.load(f)
 
-    await load_data_to_db(db, data, building_number="6", floor_number=4)
-
-
+    await load_data_to_db(db, data, building_number="4", floor_number=2)
 if __name__ == '__main__':
     asyncio.run(main())
