@@ -245,11 +245,11 @@ async def main():
     # await load_data_to_db(db, data, building_number="6", floor_number=2)
 
     # корпус 6 этаж 3
-    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\test_3_eta_6.json", 'r',
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\buiding_6_floor_4.json", 'r',
               encoding='utf-8') as f:
         data = json.load(f)
 
-    await load_data_to_db(db, data, building_number="6", floor_number=3)
+    await load_data_to_db(db, data, building_number="6", floor_number=4)
 
 
 async def delete_floor_data(db: SQLAlchemyDatabase, building_number: str, floor_number: int):
@@ -294,7 +294,7 @@ async def main_delete():
 
     # Укажите номер здания и этаж, которые нужно удалить
     building_number_to_delete = "6"  # Замените на номер вашего тестового здания
-    floor_number_to_delete = 3  # Замените на номер вашего тестового этажа
+    floor_number_to_delete = 4  # Замените на номер вашего тестового этажа
 
     await delete_floor_data(db, building_number_to_delete, floor_number_to_delete)
 

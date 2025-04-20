@@ -12,8 +12,8 @@ image = None
 image_tk = None
 nodes = {}  # {'node_name': {'coords': (x, y), 'type': type, 'name': {'ru':.., 'en': ...}, 'description':{...}}}
 edges = []  # [(node1, node2, weight)]
-current_mode = "add_node" # Режимы: "add_node", "add_edge" # Изменено: добавили режим
-start_node_edge = None  # Первый узел для ребра (при добавлении ребра кликами) # Изменено: добавили переменную для выбора узла ребра
+current_mode = "add_node" # Режимы: "add_node", "add_edge"
+start_node_edge = None  # Первый узел для ребра (при добавлении ребра кликами)
 start_node = None
 end_node = None
 graph = {}
@@ -129,25 +129,25 @@ def add_node_click(event):
         if clicked_node:
             if start_node_edge is None:
                 start_node_edge = clicked_node
-                messagebox.showinfo("Информация", f"Выбран первый узел для ребра: {start_node_edge}. Теперь выберите второй узел.")
-                redraw_image() # Обновляем изображение для подсветки узла
+                # messagebox.showinfo("Информация", f"Выбран первый узел для ребра: {start_node_edge}. Теперь выберите второй узел.") # Убрали уведомление
+                redraw_image()
             else:
                 end_node_edge = clicked_node
                 if start_node_edge == end_node_edge:
                     messagebox.showerror("Ошибка", "Начальный и конечный узлы ребра должны быть разными.")
                     start_node_edge = None  # Сбросить выбор
-                    redraw_image() # Обновляем изображение для снятия подсветки
+                    redraw_image()
                     return
 
-                entry_edge_node1.delete(0, tk.END) # Автоматически заполняем поля ввода ребер
+                entry_edge_node1.delete(0, tk.END)
                 entry_edge_node2.delete(0, tk.END)
                 entry_edge_node1.insert(0, start_node_edge)
                 entry_edge_node2.insert(0, end_node_edge)
-                start_node_edge = None # Сбрасываем после использования
-                redraw_image() # Обновляем изображение для снятия подсветки
-                messagebox.showinfo("Информация", f"Выбран второй узел для ребра: {end_node_edge}. Введите вес ребра и нажмите 'Добавить ребро'.")
-        else:
-            messagebox.showinfo("Информация", "Кликните на существующий узел, чтобы выбрать его для ребра.")
+                start_node_edge = None
+                redraw_image()
+                # messagebox.showinfo("Информация", f"Выбран второй узел для ребра: {end_node_edge}. Введите вес ребра и нажмите 'Добавить ребро'.") # Убрали уведомление
+        # else: # Убрали уведомление об клике не на узел, чтобы не мешало
+        #     messagebox.showinfo("Информация", "Кликните на существующий узел, чтобы выбрать его для ребра.")
 
 
 def add_node(x, y):
@@ -198,19 +198,22 @@ def add_edge():
     node2 = entry_edge_node2.get()
     weight_str = entry_edge_weight.get()
 
-    if not (node1 and node2 and weight_str):
-        messagebox.showerror("Ошибка", "Введите имена узлов и вес ребра")
+    if not (node1 and node2): # Вес теперь не обязателен для заполнения, убрали из проверки `weight_str`
+        messagebox.showerror("Ошибка", "Введите имена узлов") # Сообщение об ошибке теперь только про узлы
         return
 
     if node1 not in nodes or node2 not in nodes:
         messagebox.showerror("Ошибка", "Один или оба узла не существуют")
         return
 
-    try:
-        weight = float(weight_str)
-    except ValueError:
-        messagebox.showerror("Ошибка", "Некорректный вес ребра")
-        return
+    if not weight_str: # Проверяем, пустое ли поле веса
+        weight = 1.0 # Вес по умолчанию 1
+    else:
+        try:
+            weight = float(weight_str)
+        except ValueError:
+            messagebox.showerror("Ошибка", "Некорректный вес ребра")
+            return
 
     edges.append((node1, node2, weight))
     entry_edge_node1.delete(0, tk.END)
@@ -318,7 +321,7 @@ def set_mode(mode):
     start_node_edge = None # Сбрасываем выбор узлов при смене режима
     redraw_image() # Обновляем изображение, чтобы убрать подсветку, если была
     if current_mode == "add_edge":
-        messagebox.showinfo("Информация", "Режим добавления ребер. Кликните на первый узел, затем на второй.")
+        pass # Убрали уведомление о режиме добавления ребер
 
 
 # GUI
@@ -422,6 +425,7 @@ entry_description_kz.pack(side=tk.LEFT, padx=5, pady=5)
 # Добавление ребра
 frame_add_edge = tk.Frame(root)
 frame_add_edge.pack(side=tk.TOP, fill=tk.X)
+frame_add_edge.bind("<Return>", lambda event: add_edge()) # Биндим Enter к фрейму
 
 label_edge_node1 = tk.Label(frame_add_edge, text="Узел 1:")
 label_edge_node1.pack(side=tk.LEFT, padx=5, pady=5)
@@ -433,10 +437,11 @@ label_edge_node2.pack(side=tk.LEFT, padx=5, pady=5)
 entry_edge_node2 = tk.Entry(frame_add_edge)
 entry_edge_node2.pack(side=tk.LEFT, padx=5, pady=5)
 
-label_edge_weight = tk.Label(frame_add_edge, text="Вес ребра:")
+label_edge_weight = tk.Label(frame_add_edge, text="Вес ребра (по умолч. 1):") # Подсказка про вес по умолчанию
 label_edge_weight.pack(side=tk.LEFT, padx=5, pady=5)
 entry_edge_weight = tk.Entry(frame_add_edge)
 entry_edge_weight.pack(side=tk.LEFT, padx=5, pady=5)
+
 
 button_add_edge = tk.Button(frame_add_edge, text="Добавить ребро", command=add_edge)
 button_add_edge.pack(side=tk.LEFT, padx=5, pady=5)

@@ -15,6 +15,8 @@ async def get_route_suggestions(start: str, target: str, building: str, language
     Возвращает путь между двумя локациями в здании, с изображениями для каждого этажа.
     Использует `language` для отображения информации о локациях.
     """
+    print(target)
+    print(building)
     nodes = await map_repository.search_nodes(target)
 
     suggestions = []
@@ -148,7 +150,7 @@ async def get_route(start: str, target: str, building: str, language: str = "ru"
     path = dijkstra_path(graph, start, target)
     if not path:
         raise HTTPException(status_code=404, detail="Путь не найден")
-
+    print(path)
     # 5. Группируем путь по этажам
     floor_paths: Dict[int, List[str]] = {}  # floor_number -> list of node names
     for node_name in path:

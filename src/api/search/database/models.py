@@ -9,7 +9,7 @@ from sqlalchemy import String, Float, ForeignKey, Integer
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from src.api.ar.models import Room
 from src.database.database import Base
 
 
@@ -26,10 +26,12 @@ class Floor(Base):
 
     location_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("locations.id", ondelete="SET NULL"),
                                                     nullable=True)
+    mind_file_path: Mapped[Optional[str]] = mapped_column(String, nullable=True, comment="Путь к .mind файлу")
 
     nodes: Mapped[List["Node"]] = relationship(back_populates="floor")
     edges: Mapped[List["Edge"]] = relationship(back_populates="floor")
     location: Mapped["Location"] = relationship("Location", back_populates="floors")
+    rooms: Mapped[List["Room"]] = relationship(back_populates="floor")
 
 
 class Node(Base):
@@ -160,12 +162,14 @@ async def load_data_to_db(db: SQLAlchemyDatabase, data: Dict, building_number: s
         async for session in db.get_session():
             building_number = building_number
             image_path = data.get("image_path")
+            mind_file_path = f"building_{building_number}/floor_{floor_number}.mind"
 
             # Кодируем изображение в Base64
             image_data = image_to_base64(image_path)
 
             # Создаем объект Floor
-            floor = Floor(building_number=building_number, image_data=image_data, floor_number=floor_number)
+            floor = Floor(building_number=building_number, image_data=image_data, floor_number=floor_number,
+                          mind_file_path=mind_file_path)
             session.add(floor)
             await session.flush()  # Получаем ID этажа
 
@@ -243,13 +247,26 @@ async def main():
     # await load_data_to_db(db, data, building_number="6", floor_number=2)
 
     # корпус 6 этаж 3
-    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\test_3_eta_6.json", 'r',
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\buiding_6_floor_3.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="6", floor_number=3)
+
+    # корпус 6 этаж 4
+    # with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_6_floor_4.json", 'r',
+    #           encoding='utf-8') as f:
+    #     data = json.load(f)
+    #
+    # await load_data_to_db(db, data, building_number="6", floor_number=4)
+    # корпус 5 этаж 2
+
+    with open(r"E:\PycharmProjects\skgu_diplome_api\src\search\building_5_floor_2.json", 'r',
               encoding='utf-8') as f:
         data = json.load(f)
 
-    await load_data_to_db(db, data, building_number="6", floor_number=3)
+    await load_data_to_db(db, data, building_number="6", floor_number=4)
+
 
 if __name__ == '__main__':
     asyncio.run(main())
-
-
