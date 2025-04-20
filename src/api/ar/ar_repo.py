@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import selectinload
 
 from config import DATABASE_URL
+from src.api.ar.schemas import RoomCreateSchema
 from src.api.search.database.models import Floor, Room
 from src.database.singleton_database import DatabaseSingleton
 
@@ -55,7 +56,7 @@ class ARRepository:
                 select(Floor)
                 .where(Floor.building_number == building_number)
                 .where(Floor.floor_number == floor_number)
-                .options(selectinload(Floor.rooms)) # Eager load rooms чтобы rooms были загружены сразу
+                .options(selectinload(Floor.rooms))
             )
             floor = floor.scalar_one_or_none()
 
@@ -63,5 +64,34 @@ class ARRepository:
                 raise HTTPException(status_code=404, detail="Этаж не найден")
 
             return floor.rooms
+
+    async def add_room_to_floor(self, room_data: RoomCreateSchema) -> Room:
+        """
+        Добавляет новый кабинет к указанному этажу.
+        """
+        async with self.db.session_maker() as session:
+            floor = await session.execute(
+                select(Floor)
+                .where(Floor.building_number == room_data.building_number)
+                .where(Floor.floor_number == room_data.floor_number)
+            )
+            floor = floor.scalar_one_or_none()
+
+            if not floor:
+                raise HTTPException(status_code=404, detail="Этаж не найден")
+
+            new_room = Room(
+                room_number=room_data.room_number,
+                room_name=room_data.room_name,
+                target_index=room_data.target_index,
+                description=room_data.description,
+                floor_id=floor.id,  # Связываем комнату с этажом через floor_id
+                floor=floor  # и явно устанавливаем связь для ORM
+            )
+            session.add(new_room)
+            await session.commit()
+            await session.refresh(new_room)  # Обновляем объект, чтобы получить сгенерированный ID
+            return new_room
+
 
 ar_repo = ARRepository()
