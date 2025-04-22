@@ -500,7 +500,7 @@ async def get_schedule_endpoint(current_user=Depends(get_current_user)):
     content = await fetch_content_with_ntlm_auth(schedule_url_fstring, user_login, user_pass)
 
     results = parse_schedule_from_page(content)
-
+    print(results)
     return {"results": results}
 
 

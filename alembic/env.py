@@ -9,6 +9,7 @@ from src.api.search.database.models import *
 from src.api.auth.models import *
 from src.api.events.models import *
 from src.api.services.important_links.models import *
+from src.api.faculties.models import *
 from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
