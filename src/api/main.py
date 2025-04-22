@@ -11,6 +11,7 @@ from src.api.schedule.router import router as schedule_router
 from src.api.search.router import router as router_search
 from src.api.services.important_links.router import router as important_links_router
 from src.api.ar.router import router as ar_router
+from src.api.faculties.router import router as faculties_router
 
 app = FastAPI()
 app.add_middleware(
@@ -27,6 +28,7 @@ app.include_router(important_links_router)
 app.include_router(auth_router)
 app.include_router(events_router)
 app.include_router(ar_router)
+app.include_router(faculties_router)
 
 
 @app.exception_handler(MissingTokenError)

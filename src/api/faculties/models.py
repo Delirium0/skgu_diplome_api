@@ -60,7 +60,3 @@ class EducationalProgram(Base):
     def __repr__(self) -> str:
         return f"<EducationalProgram(id={self.id}, code='{self.code}', name='{self.name}', faculty_id={self.faculty_id})>"
 
-# Не забудь импортировать эти модели в __init__.py твоего модуля models
-# и обновить Alembic для создания миграций:
-# alembic revision --autogenerate -m "Add faculty, department, educational_program tables"
-# alembic upgrade head

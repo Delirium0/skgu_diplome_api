@@ -1,27 +1,75 @@
 # src/api/faculties/faculty_router.py
-from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List, Optional
+from fastapi import APIRouter, Depends, HTTPException, status, Response, Request  # Добавили Request
 
-# Убедись, что импорты корректны для твоей структуры проекта
+# --- ВАШИ ИМПОРТЫ АУТЕНТИФИКАЦИИ ---
+# Убедись, что пути импорта корректны для твоего проекта
+from src.api.auth.security import security  # Используется в get_current_user
+from src.api.auth.user_repo import user_repository  # Используется в get_current_user
+# --- ИМПОРТЫ ДЛЯ ФАКУЛЬТЕТОВ ---
 from src.api.faculties.faculty_repo import FacultyRepository, faculty_repo
-from src.api.faculties.schemas import FacultyResponse, FacultyListResponse  # Импорт схем
+from src.api.faculties.schemas import (
+    FacultyResponse,
+    FacultyListResponse,
+    FacultyCreate,
+    FacultyUpdate
+)
+from src.api.auth.service import get_current_user, user_is_admin
 
-# Можно добавить зависимость от токена, если информация не публичная
-# from src.api.auth.service import get_current_user
-# from src.api.auth.security import security
-
+# Единый роутер для всех операций с факультетами
 router = APIRouter(prefix='/faculties', tags=["Faculties"])
 
 
 async def get_faculty_repository() -> FacultyRepository:
+    """Зависимость для получения экземпляра репозитория."""
     return faculty_repo
 
 
+
+@router.post(
+    "/",
+    response_model=FacultyResponse,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(user_is_admin)]
+)
+async def create_faculty(
+        faculty_in: FacultyCreate,
+        repo: FacultyRepository = Depends(get_faculty_repository)
+        # current_admin = Depends(get_current_admin) # Можно получить админа здесь, если он нужен
+):
+    """
+    Создание нового факультета (требуются права администратора).
+    """
+    # Проверка на уникальность имени перед созданием
+    existing_faculty = await repo.get_faculty_by_name(faculty_in.name)
+    if existing_faculty:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Факультет с именем '{faculty_in.name}' уже существует."
+        )
+    created_faculty = await repo.create_faculty(faculty_data=faculty_in)
+    return created_faculty
+
+
+@router.get("/", response_model=List[FacultyListResponse])
+async def read_faculties(
+        repo: FacultyRepository = Depends(get_faculty_repository)
+):
+    """
+    Получение списка всех факультетов (ID и название). Доступно всем.
+    """
+    faculties = await repo.get_all_faculties()
+    return faculties
+
+
 @router.get("/{faculty_id}", response_model=FacultyResponse)
-async def read_faculty(faculty_id: int, repo: FacultyRepository = Depends(get_faculty_repository)):
+async def read_faculty(
+        faculty_id: int,
+        repo: FacultyRepository = Depends(get_faculty_repository)
+):
     """
     Получение детальной информации о факультете по ID,
-    включая кафедры и образовательные программы.
+    включая кафедры и образовательные программы. Доступно всем.
     """
     faculty = await repo.get_faculty_by_id(faculty_id)
     if not faculty:
@@ -29,15 +77,57 @@ async def read_faculty(faculty_id: int, repo: FacultyRepository = Depends(get_fa
     return faculty
 
 
-@router.get("/", response_model=List[FacultyListResponse])  # Если нужен список для главной
-async def read_faculties(repo: FacultyRepository = Depends(get_faculty_repository)):
+@router.put(
+    "/{faculty_id}",
+    response_model=FacultyResponse,
+    dependencies=[Depends(user_is_admin)]  # <<< Защита с помощью вашей функции
+)
+async def update_faculty(
+        faculty_id: int,
+        faculty_in: FacultyUpdate,
+        repo: FacultyRepository = Depends(get_faculty_repository)
+        # current_admin = Depends(get_current_admin) # Можно получить админа здесь
+):
     """
-    Получение списка всех факультетов (только ID и название).
+    Обновление существующего факультета по ID (требуются права администратора).
     """
-    faculties = await repo.get_all_faculties()
-    return faculties
+    faculty_to_update = await repo.get_faculty_by_id(faculty_id)
+    if not faculty_to_update:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Факультет не найден")
 
-# Не забудь зарегистрировать этот роутер в твоем основном приложении FastAPI
-# Например, в main.py:
+    # Если в запросе есть новое имя, проверяем его на уникальность
+    if faculty_in.name is not None and faculty_in.name != faculty_to_update.name:
+        existing_faculty_with_new_name = await repo.get_faculty_by_name(faculty_in.name)
+        if existing_faculty_with_new_name:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"Факультет с именем '{faculty_in.name}' уже существует."
+            )
+
+    updated_faculty = await repo.update_faculty(faculty_id=faculty_id, faculty_data=faculty_in)
+    return updated_faculty
+
+
+@router.delete(
+    "/{faculty_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(user_is_admin)]  # <<< Защита с помощью вашей функции
+)
+async def delete_faculty(
+        faculty_id: int,
+        repo: FacultyRepository = Depends(get_faculty_repository)
+        # current_admin = Depends(get_current_admin) # Можно получить админа здесь
+):
+    """
+    Удаление факультета по ID (требуются права администратора).
+    """
+    deleted = await repo.delete_faculty(faculty_id=faculty_id)
+    if not deleted:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Факультет не найден")
+    # При успехе и status_code 204 тело ответа не отправляется
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+# --- Регистрация роутера в main.py ---
+# Не забудь зарегистрировать этот роутер:
 # from src.api.faculties import faculty_router
 # app.include_router(faculty_router.router)
