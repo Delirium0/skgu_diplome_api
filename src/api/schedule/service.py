@@ -83,8 +83,4 @@ async def schedule(user_login: str, user_pass: str) -> dict:
 
 
 if __name__ == '__main__':
-    # asyncio.run(get_user_evaluations(69116))
-    # asyncio.run(get_user_id('vt2019', '6v3tvkz5'))
-    result = asyncio.run(schedule('VT1042', 'p3y1u3rs'))
-
-    current_lesson = get_current_lesson(result)
+    pass
