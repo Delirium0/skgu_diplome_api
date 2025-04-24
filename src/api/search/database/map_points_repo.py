@@ -25,7 +25,8 @@ class MapPointsRepository:
 
     async def add_location(self, lat: float, lng: float, title: str, type_: str, address: str,
                            time_start: str | None, time_end: str | None, main_icon: str | None,
-                           bounds: list[tuple[float, float]], building_type: str | None, building_type_name_ru: str | None):
+                           bounds: list[tuple[float, float]], building_type: str | None,
+                           building_type_name_ru: str | None):
         async with self.db.session_maker() as session:
             async with session.begin():
                 location = Location(
@@ -89,23 +90,81 @@ async def test():
     #         (54.874824, 69.134197)
     #     ]
     # )
+    # image_path = r'E:\PycharmProjects\skgu_diplome_api\src\api\locations\assets\people-at-the-table-svgrepo-com.svg'
+    # await repo.add_location(
+    #     lat=54.875119,
+    #     lng=69.134629,
+    #     title="Kozybaev University корпус 5",
+    #     type_="square",
+    #     address="СКУ им. М. Козыбаева Улица Интернациональная, 26 5 корпус",
+    #     time_start="ПН-ПТ",
+    #     time_end="09:00-18:00",
+    #     building_type_name_ru="тест",
+    #     building_type="тест",
+    #     main_icon=image_to_base64(image_path),
+    #     bounds=[
+    #         (54.875559, 69.132989),
+    #         (54.875646, 69.133182),
+    #         (54.874923, 69.134369),
+    #         (54.874824, 69.134197)
+    #     ]
+    # )
+    # pass
+    # image_path = r'E:\PycharmProjects\skgu_diplome_api\src\api\locations\assets\people-at-the-table-svgrepo-com.svg'
+    # await repo.add_location(
+    #     lat=54.875119,
+    #     lng=69.134629,
+    #     title="Kozybaev University корпус 4",
+    #     type_="square",
+    #     address="СКУ им. М. Козыбаева Улица Александра Пушкина, 81",
+    #     time_start="ПН-ПТ",
+    #     time_end="09:00-18:00",
+    #     building_type_name_ru="Учебные корпуса",
+    #     building_type="academic_building",
+    #     main_icon=image_to_base64(image_path),
+    #     bounds=[
+    #         (54.876096, 69.132633),
+    #         (54.876295, 69.132163),
+    #         (54.875745, 69.131098),
+    #         (54.87564, 69.131282)
+    #     ]
+    # )
+    # image_path = r'E:\PycharmProjects\skgu_diplome_api\src\api\locations\assets\people-at-the-table-svgrepo-com.svg'
+    # await repo.add_location(
+    #     lat=54.877201,
+    #     lng=69.13214,
+    #     title="Kozybaev University корпус 3",
+    #     type_="square",
+    #     address="СКУ им. М. Козыбаева улица Александра Пушкина, 86",
+    #     time_start="ПН-ПТ",
+    #     time_end="09:00-18:00",
+    #     building_type_name_ru="Учебные корпуса",
+    #     building_type="academic_building",
+    #     main_icon=image_to_base64(image_path),
+    #     bounds=[
+    #         (54.877556, 69.132422),
+    #         (54.87737, 69.132728),
+    #         (54.876855, 69.131753),
+    #         (54.877038, 69.131455)
+    #     ]
+    # )
     image_path = r'E:\PycharmProjects\skgu_diplome_api\src\api\locations\assets\people-at-the-table-svgrepo-com.svg'
     await repo.add_location(
-        lat=54.875119,
-        lng=69.134629,
-        title="Kozybaev University корпус 5",
+        lat=54.878436,
+        lng=69.132768,
+        title="Kozybaev University корпус 1",
         type_="square",
-        address="СКУ им. М. Козыбаева Улица Интернациональная, 26 5 корпус",
+        address="СКУ им. М. Козыбаева Улица Абая Кунанбаева, 18",
         time_start="ПН-ПТ",
         time_end="09:00-18:00",
-        building_type_name_ru="тест",
-        building_type="тест",
+        building_type_name_ru="Учебные корпуса",
+        building_type="academic_building",
         main_icon=image_to_base64(image_path),
         bounds=[
-            (54.875559, 69.132989),
-            (54.875646, 69.133182),
-            (54.874923, 69.134369),
-            (54.874824, 69.134197)
+            (54.87876, 69.132715),
+            (54.878492, 69.133246),
+            (54.878118, 69.132543),
+            (54.878464, 69.132162)
         ]
     )
     pass

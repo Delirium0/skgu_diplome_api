@@ -5,7 +5,8 @@ from fastapi import APIRouter, HTTPException
 
 from src.api.locations.locations_repo import loc_repo
 from src.api.locations.schemas import LocationsInfo, LocationInfo, LocationCreate, LocationInfoDetail, \
-    FloorInfo  # Import FloorInfo
+    FloorInfo, LocationsInfoMP, LocationWithBoundsResponse  # Import FloorInfo
+from src.api.search.database.models import Location
 
 router = APIRouter(prefix='/locations', tags=["Locations"])
 
@@ -27,6 +28,34 @@ async def get_all_locations():
         )
         locations_info.append(location_info)
     return locations_info
+
+
+@router.get('/locations_main_page', response_model=List[LocationWithBoundsResponse])
+async def get_all_locations():
+    locations: List[Location] = await loc_repo.get_all_buildings_info_main()
+
+    locations_response = []
+    for location in locations:
+        bounds_data = [[bound.lat, bound.lng] for bound in location.bounds]
+
+        # Создаем объект ответа Pydantic
+        location_data = LocationWithBoundsResponse(
+            id=location.id,
+            lat=location.lat,
+            lng=location.lng,
+            title=location.title,
+            type=location.type,  # Убедитесь, что поле 'type' есть в модели Location
+            address=location.address,
+            time_start=location.time_start,
+            time_end=location.time_end,
+            main_icon=location.main_icon,
+            building_type=location.building_type,
+            building_type_name_ru=location.building_type_name_ru,
+            bounds=bounds_data
+        )
+        locations_response.append(location_data)
+
+    return locations_response
 
 
 @router.post('/locations', response_model=LocationInfo)

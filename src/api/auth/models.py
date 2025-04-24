@@ -2,10 +2,14 @@ from typing import Optional
 
 from sqlalchemy import Integer, String, Date
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, relationship
 from sqlalchemy.orm import mapped_column
+from typing import List, TYPE_CHECKING
 
 from src.database.database import Base
+
+if TYPE_CHECKING:
+    from src.api.feedback.models import Feedback
 
 
 class User(Base):
@@ -21,3 +25,8 @@ class User(Base):
     year: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)  # 2024
     cmbPeriod: Mapped[Optional[Date]] = mapped_column(Date, nullable=True)  # 2025-04-07
     group_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)  # 6207
+    feedbacks: Mapped[List["Feedback"]] = relationship(
+        "Feedback",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )

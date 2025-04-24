@@ -25,7 +25,6 @@ async def get_faculty_repository() -> FacultyRepository:
     return faculty_repo
 
 
-
 @router.post(
     "/",
     response_model=FacultyResponse,
@@ -35,7 +34,6 @@ async def get_faculty_repository() -> FacultyRepository:
 async def create_faculty(
         faculty_in: FacultyCreate,
         repo: FacultyRepository = Depends(get_faculty_repository)
-        # current_admin = Depends(get_current_admin) # Можно получить админа здесь, если он нужен
 ):
     """
     Создание нового факультета (требуются права администратора).
@@ -80,13 +78,12 @@ async def read_faculty(
 @router.put(
     "/{faculty_id}",
     response_model=FacultyResponse,
-    dependencies=[Depends(user_is_admin)]  # <<< Защита с помощью вашей функции
+    dependencies=[Depends(user_is_admin)]
 )
 async def update_faculty(
         faculty_id: int,
         faculty_in: FacultyUpdate,
         repo: FacultyRepository = Depends(get_faculty_repository)
-        # current_admin = Depends(get_current_admin) # Можно получить админа здесь
 ):
     """
     Обновление существующего факультета по ID (требуются права администратора).
@@ -95,7 +92,6 @@ async def update_faculty(
     if not faculty_to_update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Факультет не найден")
 
-    # Если в запросе есть новое имя, проверяем его на уникальность
     if faculty_in.name is not None and faculty_in.name != faculty_to_update.name:
         existing_faculty_with_new_name = await repo.get_faculty_by_name(faculty_in.name)
         if existing_faculty_with_new_name:
@@ -111,12 +107,11 @@ async def update_faculty(
 @router.delete(
     "/{faculty_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    dependencies=[Depends(user_is_admin)]  # <<< Защита с помощью вашей функции
+    dependencies=[Depends(user_is_admin)]
 )
 async def delete_faculty(
         faculty_id: int,
         repo: FacultyRepository = Depends(get_faculty_repository)
-        # current_admin = Depends(get_current_admin) # Можно получить админа здесь
 ):
     """
     Удаление факультета по ID (требуются права администратора).
@@ -124,10 +119,6 @@ async def delete_faculty(
     deleted = await repo.delete_faculty(faculty_id=faculty_id)
     if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Факультет не найден")
-    # При успехе и status_code 204 тело ответа не отправляется
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-# --- Регистрация роутера в main.py ---
-# Не забудь зарегистрировать этот роутер:
-# from src.api.faculties import faculty_router
-# app.include_router(faculty_router.router)
+

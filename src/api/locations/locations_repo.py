@@ -28,6 +28,13 @@ class LocationsRepository:
             )
             return result.all()
 
+    async def get_all_buildings_info_main(self) -> list[Location]:
+        async with self.db.session_maker() as session:
+            stmt = select(Location).options(selectinload(Location.bounds))
+            result = await session.execute(stmt)
+            locations = result.scalars().all()
+            return list(locations)
+
     async def create_location(self, location_data: LocationCreate) -> Location:  # Correct return type
         """Creates a new location in the database."""
         async with self.db.session_maker() as session:

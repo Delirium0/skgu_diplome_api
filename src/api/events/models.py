@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.database.database import Base  # Убедитесь, что Base импортируется правильно из вашего database.py
+from src.database.database import Base
 
 
 class Event(Base):

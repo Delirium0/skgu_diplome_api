@@ -3,6 +3,7 @@ import base64
 from typing import AsyncGenerator
 from typing import Dict
 from typing import List, Optional
+import json
 
 from sqlalchemy import Float
 from sqlalchemy import MetaData, NullPool
@@ -242,7 +243,6 @@ async def main():
 
     await create_db_and_tables(db)
 
-    import json
     # # корпус 5 этаж 1
     # with open(r"E:\PycharmProjects\skgu_diplome_api\src\api\search\new\new_floor1_building_5.json", 'r',
     #           encoding='utf-8') as f:
@@ -373,5 +373,7 @@ async def main():
     #     data = json.load(f)
     #
     # await load_data_to_db(db, data, building_number="1", floor_number=2)
+
+
 if __name__ == '__main__':
     asyncio.run(main())

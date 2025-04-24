@@ -24,6 +24,32 @@ class LocationsInfo(BaseModel):
     main_icon: Optional[str] = None
 
 
+class LocationsInfoMP(BaseModel):
+    id: int
+    building_type: Optional[str] = None
+    building_type_name_ru: Optional[str] = None
+    time_start: Optional[str] = None
+    time_end: Optional[str] = None
+    address: str
+    title: str
+    main_icon: Optional[str] = None
+
+
+class LocationWithBoundsResponse(BaseModel):
+    id: int
+    lat: float  # Добавлено, так как есть в примере вывода
+    lng: float  # Добавлено, так как есть в примере вывода
+    title: str
+    type: str  # Добавлено, так как есть в примере вывода
+    address: str
+    time_start: Optional[str] = None
+    time_end: Optional[str] = None
+    main_icon: Optional[str] = None
+    building_type: Optional[str] = None  # Добавлено, так как есть в примере вывода (хотя там нет)
+    building_type_name_ru: Optional[str] = None  # Добавлено, так как есть в примере вывода (хотя там нет)
+    bounds: List[List[float]]  # Список списков [lat, lng]
+
+
 class LocationInfo(BaseModel):
     id: int
     lat: float
