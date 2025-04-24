@@ -1,0 +1,949 @@
+{
+    "image_path": "E:/PycharmProjects/skgu_diplome_api/src/search/building_3_floor_1.png",
+    "building_number": "3",
+    "nodes": {
+        "1_entrance": {
+            "coords": [
+                571,
+                478
+            ],
+            "type": "entrance",
+            "name": {
+                "ru": "Вход",
+                "en": "Entrance",
+                "kz": "Кіреберіс"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b3_f1_up_corridor": {
+            "coords": [
+                569,
+                296
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b3_f1_up": {
+            "coords": [
+                571,
+                162
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_150": {
+            "coords": [
+                485,
+                295
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_152": {
+            "coords": [
+                436,
+                287
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_155": {
+            "coords": [
+                396,
+                289
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_154": {
+            "coords": [
+                343,
+                288
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_157": {
+            "coords": [
+                313,
+                289
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_toilet": {
+            "coords": [
+                188,
+                291
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_156": {
+            "coords": [
+                69,
+                282
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_158": {
+            "coords": [
+                184,
+                404
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_150_left": {
+            "coords": [
+                186,
+                382
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_160": {
+            "coords": [
+                181,
+                512
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_151": {
+            "coords": [
+                733,
+                298
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_149": {
+            "coords": [
+                789,
+                292
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_147": {
+            "coords": [
+                855,
+                298
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_148": {
+            "coords": [
+                931,
+                295
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_146": {
+            "coords": [
+                992,
+                300
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_142": {
+            "coords": [
+                1092,
+                298
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_145": {
+            "coords": [
+                992,
+                376
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_143": {
+            "coords": [
+                993,
+                421
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b3_f1_144": {
+            "coords": [
+                998,
+                530
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "toilet_b3_f1_right": {
+            "coords": [
+                1030,
+                257
+            ],
+            "type": "toilet",
+            "name": {
+                "ru": "Туалет правый (3 корпус, 1 этаж)",
+                "en": "Right Toilet (Building 3, Floor 1)",
+                "kz": "Оң жақ дәретхана (3 ғимарат, 1 қабат)"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "toilet_b3_f1_left": {
+            "coords": [
+                187,
+                258
+            ],
+            "type": "toilet",
+            "name": {
+                "ru": "Туалет левый (3 корпус, 1 этаж)",
+                "en": "Left Toilet (Building 3, Floor 1)",
+                "kz": "Сол жақ дәретхана (3 ғимарат, 1 қабат)"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stolovya_b3_f1": {
+            "coords": [
+                757,
+                257
+            ],
+            "type": "other",
+            "name": {
+                "ru": "Столовая (3 корпус, 1 этаж)",
+                "en": "Canteen (Building 3, Floor 1)",
+                "kz": "Асхана (3 ғимарат, 1 қабат)"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_150": {
+            "coords": [
+                482,
+                257
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 150",
+                "en": "Office 150",
+                "kz": "Кабинет 150"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_155": {
+            "coords": [
+                394,
+                327
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 155",
+                "en": "Office 155",
+                "kz": "Кабинет 155"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_152": {
+            "coords": [
+                435,
+                257
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 152",
+                "en": "Office 152",
+                "kz": "Кабинет 152"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_154": {
+            "coords": [
+                344,
+                257
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 154",
+                "en": "Office 154",
+                "kz": "Кабинет 154"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_157": {
+            "coords": [
+                316,
+                328
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 157",
+                "en": "Office 157",
+                "kz": "Кабинет 157"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_156": {
+            "coords": [
+                69,
+                255
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 156",
+                "en": "Office 156",
+                "kz": "Кабинет 156"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_158": {
+            "coords": [
+                136,
+                405
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 158",
+                "en": "Office 158",
+                "kz": "Кабинет 158"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_150_left": {
+            "coords": [
+                223,
+                383
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 150",
+                "en": "Office 150",
+                "kz": "Кабинет 150"
+            },
+            "description": {
+                "ru": "Уточните номер этого кабинета, если он отличается",
+                "en": "Specify the number of this office if it differs",
+                "kz": "Бұл кабинеттің нөмірі басқа болса, нақтылаңыз"
+            }
+        },
+        "office_b3_f1_160": {
+            "coords": [
+                136,
+                512
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 160",
+                "en": "Office 160",
+                "kz": "Кабинет 160"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_151": {
+            "coords": [
+                735,
+                333
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 151",
+                "en": "Office 151",
+                "kz": "Кабинет 151"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_149": {
+            "coords": [
+                790,
+                329
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 149",
+                "en": "Office 149",
+                "kz": "Кабинет 149"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_147": {
+            "coords": [
+                851,
+                331
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 147",
+                "en": "Office 147",
+                "kz": "Кабинет 147"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_145": {
+            "coords": [
+                959,
+                377
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 145",
+                "en": "Office 145",
+                "kz": "Кабинет 145"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_143": {
+            "coords": [
+                1033,
+                421
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 143",
+                "en": "Office 143",
+                "kz": "Кабинет 143"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_144": {
+            "coords": [
+                1033,
+                530
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 144",
+                "en": "Office 144",
+                "kz": "Кабинет 144"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_148": {
+            "coords": [
+                929,
+                258
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 148",
+                "en": "Office 148",
+                "kz": "Кабинет 148"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_146": {
+            "coords": [
+                990,
+                256
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 146",
+                "en": "Office 146",
+                "kz": "Кабинет 146"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b3_f1_142": {
+            "coords": [
+                1092,
+                255
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 142",
+                "en": "Office 142",
+                "kz": "Кабинет 142"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        }
+    },
+    "edges": [
+        [
+            "1_entrance",
+            "stairs_b3_f1_up_corridor",
+            1.0
+        ],
+        [
+            "stairs_b3_f1_up_corridor",
+            "stairs_b3_f1_up",
+            1.0
+        ],
+        [
+            "stairs_b3_f1_up_corridor",
+            "corridor_b3_f1_150",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_150",
+            "office_b3_f1_150",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_150",
+            "corridor_b3_f1_152",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_152",
+            "office_b3_f1_152",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_152",
+            "corridor_b3_f1_155",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_155",
+            "office_b3_f1_155",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_155",
+            "corridor_b3_f1_154",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_154",
+            "office_b3_f1_154",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_154",
+            "corridor_b3_f1_157",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_157",
+            "office_b3_f1_157",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_157",
+            "corridor_b3_f1_toilet",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_toilet",
+            "toilet_b3_f1_left",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_toilet",
+            "corridor_b3_f1_156",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_156",
+            "office_b3_f1_156",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_toilet",
+            "corridor_b3_f1_150_left",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_150_left",
+            "office_b3_f1_150_left",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_150_left",
+            "corridor_b3_f1_158",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_158",
+            "office_b3_f1_158",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_158",
+            "corridor_b3_f1_160",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_160",
+            "office_b3_f1_160",
+            1.0
+        ],
+        [
+            "stairs_b3_f1_up_corridor",
+            "corridor_b3_f1_151",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_151",
+            "office_b3_f1_151",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_151",
+            "corridor_b3_f1_149",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_149",
+            "stolovya_b3_f1",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_149",
+            "office_b3_f1_149",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_149",
+            "corridor_b3_f1_147",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_147",
+            "office_b3_f1_147",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_147",
+            "corridor_b3_f1_148",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_148",
+            "office_b3_f1_148",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_148",
+            "corridor_b3_f1_146",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_146",
+            "office_b3_f1_146",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_146",
+            "toilet_b3_f1_right",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_146",
+            "corridor_b3_f1_142",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_142",
+            "office_b3_f1_142",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_146",
+            "corridor_b3_f1_145",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_145",
+            "office_b3_f1_145",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_145",
+            "corridor_b3_f1_143",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_143",
+            "office_b3_f1_143",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_143",
+            "corridor_b3_f1_144",
+            1.0
+        ],
+        [
+            "corridor_b3_f1_144",
+            "office_b3_f1_144",
+            1.0
+        ]
+    ]
+}

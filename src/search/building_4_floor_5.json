@@ -1,0 +1,1135 @@
+{
+    "image_path": "E:/PycharmProjects/skgu_diplome_api/src/search/building_4_floor_5.png",
+    "building_number": "4",
+    "nodes": {
+        "stairs_b4_f5_right_down_": {
+            "coords": [
+                154,
+                446
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_down_corridor_1": {
+            "coords": [
+                187,
+                448
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_down_corridor_2": {
+            "coords": [
+                189,
+                398
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_down_corridor_3": {
+            "coords": [
+                190,
+                349
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_down_corridor_4": {
+            "coords": [
+                79,
+                351
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_up_corridor_1": {
+            "coords": [
+                78,
+                442
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_right_up": {
+            "coords": [
+                114,
+                444
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_left_down_": {
+            "coords": [
+                988,
+                276
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_left_down_corridor_": {
+            "coords": [
+                937,
+                279
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_left_down_corridor_1": {
+            "coords": [
+                936,
+                350
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_left_down_corridor_2": {
+            "coords": [
+                1021,
+                349
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "stairs_b4_f5_left_up": {
+            "coords": [
+                1020,
+                313
+            ],
+            "type": "stairs",
+            "name": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_504_514": {
+            "coords": [
+                281,
+                400
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_514_a": {
+            "coords": [
+                428,
+                412
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_505": {
+            "coords": [
+                488,
+                412
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_513": {
+            "coords": [
+                506,
+                411
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_506": {
+            "coords": [
+                558,
+                410
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_507": {
+            "coords": [
+                608,
+                411
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_511": {
+            "coords": [
+                720,
+                414
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_508": {
+            "coords": [
+                664,
+                412
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_511_a": {
+            "coords": [
+                801,
+                415
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_510": {
+            "coords": [
+                965,
+                417
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_509_a": {
+            "coords": [
+                1059,
+                417
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_509_b": {
+            "coords": [
+                1107,
+                420
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_509_v": {
+            "coords": [
+                1165,
+                419
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_left_1": {
+            "coords": [
+                187,
+                297
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_left_2": {
+            "coords": [
+                159,
+                296
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_501": {
+            "coords": [
+                160,
+                224
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "corridor_b4_f5_501_a_502": {
+            "coords": [
+                159,
+                74
+            ],
+            "type": "corridor",
+            "name": {
+                "ru": "Коридор",
+                "en": "Corridor",
+                "kz": "Дәліз"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_501": {
+            "coords": [
+                123,
+                221
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 501",
+                "en": "Office 501",
+                "kz": "Кабинет 501"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_501_a": {
+            "coords": [
+                122,
+                76
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 501А",
+                "en": "Office 501A",
+                "kz": "Кабинет 501А"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_502": {
+            "coords": [
+                222,
+                76
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 502",
+                "en": "Office 502",
+                "kz": "Кабинет 502"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_503": {
+            "coords": [
+                227,
+                185
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 503",
+                "en": "Office 503",
+                "kz": "Кабинет 503"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_504": {
+            "coords": [
+                282,
+                371
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 504",
+                "en": "Office 504",
+                "kz": "Кабинет 504"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_514": {
+            "coords": [
+                281,
+                444
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 514",
+                "en": "Office 514",
+                "kz": "Кабинет 514"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_514_a": {
+            "coords": [
+                430,
+                441
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 514А",
+                "en": "Office 514A",
+                "kz": "Кабинет 514А"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_505": {
+            "coords": [
+                488,
+                371
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 505",
+                "en": "Office 505",
+                "kz": "Кабинет 505"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_513": {
+            "coords": [
+                506,
+                441
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 513",
+                "en": "Office 513",
+                "kz": "Кабинет 513"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_511": {
+            "coords": [
+                723,
+                444
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 511",
+                "en": "Office 511",
+                "kz": "Кабинет 511"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_512": {
+            "coords": [
+                692,
+                472
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 512",
+                "en": "Office 512",
+                "kz": "Кабинет 512"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_507": {
+            "coords": [
+                611,
+                369
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 507",
+                "en": "Office 507",
+                "kz": "Кабинет 507"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_508": {
+            "coords": [
+                663,
+                368
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 508",
+                "en": "Office 508",
+                "kz": "Кабинет 508"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_508_b": {
+            "coords": [
+                877,
+                335
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 508Б",
+                "en": "Office 508B",
+                "kz": "Кабинет 508Б"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_508_a": {
+            "coords": [
+                766,
+                336
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 508А",
+                "en": "Office 508A",
+                "kz": "Кабинет 508А"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_511_a": {
+            "coords": [
+                802,
+                441
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 511А",
+                "en": "Office 511A",
+                "kz": "Кабинет 511А"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_510": {
+            "coords": [
+                967,
+                444
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 510",
+                "en": "Office 510",
+                "kz": "Кабинет 510"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_509_a": {
+            "coords": [
+                1056,
+                442
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 509А",
+                "en": "Office 509A",
+                "kz": "Кабинет 509А"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_509_b": {
+            "coords": [
+                1107,
+                443
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 509Б",
+                "en": "Office 509B",
+                "kz": "Кабинет 509Б"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_509_v": {
+            "coords": [
+                1168,
+                444
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 509В",
+                "en": "Office 509V",
+                "kz": "Кабинет 509В"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_509": {
+            "coords": [
+                1105,
+                367
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 509",
+                "en": "Office 509",
+                "kz": "Кабинет 509"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        },
+        "office_b4_f5_506": {
+            "coords": [
+                553,
+                368
+            ],
+            "type": "office",
+            "name": {
+                "ru": "Кабинет 506",
+                "en": "Office 506",
+                "kz": "Кабинет 506"
+            },
+            "description": {
+                "ru": "",
+                "en": "",
+                "kz": ""
+            }
+        }
+    },
+    "edges": [
+        [
+            "stairs_b4_f5_right_down_corridor_2",
+            "stairs_b4_f5_right_down_corridor_3",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_corridor_3",
+            "stairs_b4_f5_right_down_corridor_4",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_corridor_4",
+            "stairs_b4_f5_right_up_corridor_1",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_up_corridor_1",
+            "stairs_b4_f5_right_up",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_",
+            "stairs_b4_f5_right_down_corridor_1",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_corridor_1",
+            "stairs_b4_f5_right_down_corridor_2",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_corridor_3",
+            "corridor_b4_f5_left_1",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_left_1",
+            "corridor_b4_f5_left_2",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_left_2",
+            "corridor_b4_f5_501",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_501",
+            "office_b4_f5_501",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_501",
+            "corridor_b4_f5_501_a_502",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_501_a_502",
+            "office_b4_f5_501_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_501_a_502",
+            "office_b4_f5_502",
+            1.0
+        ],
+        [
+            "office_b4_f5_502",
+            "office_b4_f5_503",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_right_down_corridor_2",
+            "corridor_b4_f5_504_514",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_504_514",
+            "office_b4_f5_504",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_504_514",
+            "office_b4_f5_514",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_504_514",
+            "corridor_b4_f5_514_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_514_a",
+            "office_b4_f5_514_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_514_a",
+            "corridor_b4_f5_505",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_505",
+            "office_b4_f5_505",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_505",
+            "corridor_b4_f5_513",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_513",
+            "office_b4_f5_513",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_513",
+            "corridor_b4_f5_506",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_506",
+            "corridor_b4_f5_507",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_507",
+            "office_b4_f5_507",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_507",
+            "corridor_b4_f5_508",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_508",
+            "office_b4_f5_508",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_508",
+            "corridor_b4_f5_511",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_511",
+            "office_b4_f5_511",
+            1.0
+        ],
+        [
+            "office_b4_f5_511",
+            "office_b4_f5_512",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_511",
+            "corridor_b4_f5_511_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_511_a",
+            "office_b4_f5_511_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_511_a",
+            "corridor_b4_f5_510",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_510",
+            "stairs_b4_f5_left_down_corridor_1",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_corridor_1",
+            "stairs_b4_f5_left_down_corridor_",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_",
+            "stairs_b4_f5_left_down_corridor_",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_corridor_2",
+            "stairs_b4_f5_left_down_corridor_1",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_corridor_2",
+            "stairs_b4_f5_left_up",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_corridor_1",
+            "office_b4_f5_508_b",
+            1.0
+        ],
+        [
+            "office_b4_f5_508",
+            "office_b4_f5_508_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_510",
+            "office_b4_f5_510",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_510",
+            "corridor_b4_f5_509_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_a",
+            "office_b4_f5_509_a",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_a",
+            "corridor_b4_f5_509_b",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_b",
+            "office_b4_f5_509",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_b",
+            "office_b4_f5_509_b",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_b",
+            "corridor_b4_f5_509_v",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_509_v",
+            "office_b4_f5_509_v",
+            1.0
+        ],
+        [
+            "corridor_b4_f5_506",
+            "office_b4_f5_506",
+            1.0
+        ],
+                [
+            "stairs_b4_f5_right_down_",
+            "stairs_b4_f4_right_up",
+            1.0
+        ],
+        [
+            "stairs_b4_f5_left_down_",
+            "stairs_b4_f4_left_up",
+            1.0
+        ]
+    ]
+}
