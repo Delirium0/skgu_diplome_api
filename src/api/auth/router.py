@@ -120,16 +120,18 @@ async def login(creds: UserLoginSchema, response: Response):
             "role": "user",
         }
         try:
-            # Убедитесь, что ваш репозиторий принимает 'password' и сохраняет его как есть
-            user = await user_repository.create_user(**user_data)
+            user = await user_repository.create_user(user_data)
+
             if not user or not user.id:
                 print(f"Failed to get user object after creation for {creds.login}")
                 raise HTTPException(status_code=500,
                                     detail="Could not create user record after successful external auth")
             print(f"User {creds.login} created locally with ID: {user.id}")
         except Exception as e:
+            # Выводим полное исключение для лучшей диагностики
+            import traceback
             print(f"Failed to create local user record for {creds.login}: {e}")
-            # Критическая ошибка, не можем выдать токен без ID пользователя
+            print(traceback.format_exc())  # Печатаем traceback
             raise HTTPException(status_code=500, detail="Could not create user record")
     # else:
     # Если пользователь существовал, но локальный пароль не совпал,
