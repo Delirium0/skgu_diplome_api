@@ -18,7 +18,7 @@ from src.api.services.important_links.router import router as important_links_ro
 if MODE == "dev":
     allowed_origins = ["*"]
 else:
-    allowed_origins = ["http://49.13.194.240:3000"]
+    allowed_origins = ["https://newsite.tc-learn.kz"]
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,

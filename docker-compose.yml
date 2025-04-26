@@ -7,11 +7,12 @@ services:
     environment:
       POSTGRES_DB: skgu_diplome
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: postgres # Лучше использовать Docker Secrets для паролей
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    # ports: <-- НЕ открываем порт БД наружу без необходимости
+    networks: # Добавляем сеть
+      - app-network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
@@ -26,6 +27,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks: # Добавляем сеть
+      - app-network
     command: sh -c "alembic upgrade head && echo 'Migration completed'"
 
   api:
@@ -36,25 +39,38 @@ services:
     depends_on:
       - migration
     environment:
-      DB_HOST: db
+      DB_HOST: db # Используем имя сервиса внутри сети Docker
       DB_PORT: 5432
       DB_USER: postgres
-      DB_PASS: postgres
+      DB_PASS: postgres # Лучше использовать Docker Secrets
       DB_NAME: skgu_diplome
+      MODE: prod # <--- Установите нужный режим (prod или dev)
     ports:
-      - "8000:8000"
+      # Открываем порт ТОЛЬКО для Nginx (localhost)
+      - "127.0.0.1:8000:8000"
+    networks: # Добавляем сеть
+      - app-network
 
   frontend:
     build:
       context: ./../skgu_site
       dockerfile: front.dockerfile
       args:
-        REACT_APP_API_URL:  http://49.13.194.240:8000
+        # --- !!! ГЛАВНОЕ ИЗМЕНЕНИЕ ДЛЯ FRONTEND !!! ---
+        # Указываем ОТНОСИТЕЛЬНЫЙ путь. Nginx разрулит /api/
+        REACT_APP_API_URL: /api
     ports:
-      - "3000:3000"
+      # Открываем порт ТОЛЬКО для Nginx (localhost)
+      - "127.0.0.1:3000:3000"
     depends_on:
       - api
-
+    networks: # Добавляем сеть
+      - app-network
 
 volumes:
   db_data:
+
+# Определяем общую сеть для контейнеров
+networks:
+  app-network:
+    driver: bridge
