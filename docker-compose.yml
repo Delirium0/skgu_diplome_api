@@ -46,7 +46,7 @@ services:
 
   frontend:
     build:
-      context: ./../skgu_diplome
+      context: ./../skgu_site
       dockerfile: front.dockerfile
       args:
         REACT_APP_API_URL:  http://49.13.194.240:8000
