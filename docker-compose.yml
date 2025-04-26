@@ -32,7 +32,7 @@ services:
     container_name: api_diplome
     build:
       context: .
-      dockerfile: run_parsers.dockerfile
+      dockerfile: run_api.dockerfile
     depends_on:
       - migration
     environment:
