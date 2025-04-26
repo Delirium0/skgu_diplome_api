@@ -2,3 +2,4 @@
 .env
 src/api/auth/test.py
 db_backup.dump
+.env.example
