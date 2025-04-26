@@ -3,3 +3,4 @@
 src/api/auth/test.py
 db_backup.dump
 .env.example
+db_backup_utf8.sql
