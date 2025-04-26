@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
 from src.database.database import Base
@@ -17,6 +17,7 @@ class Event(Base):
     event_description = Column(String, nullable=True)
     creator_id = Column(Integer, ForeignKey("users.id"), nullable=False)  # Foreign key к таблице users
 
+    is_moderate = Column(Boolean, default=False)
     contact_phone = Column(String, nullable=True)
     contact_email = Column(String, nullable=True)
     creator = relationship("User", backref="created_events")  # Связь с моделью User

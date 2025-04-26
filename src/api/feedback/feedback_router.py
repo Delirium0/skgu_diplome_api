@@ -135,23 +135,17 @@ async def update_feedback(
 
 @router.delete(
     "/{feedback_id}",
-    status_code=status.HTTP_204_NO_CONTENT
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(user_is_admin)]
 )
-async def delete_feedback(
+async def delete_feedback_by_admin(
         feedback_id: int,
-        repo: FeedbackRepository = Depends(get_feedback_repository),
-        current_user: User = Depends(get_current_user)  # Пользователь может удалять только свой отзыв
+        repo: FeedbackRepository = Depends(get_feedback_repository)
+        # current_user больше не нужен здесь
 ):
-    """
-    Удаление отзыва по ID.
-    Пользователь может удалить только свой собственный отзыв.
-    """
-    deleted = await repo.delete_feedback(feedback_id=feedback_id, user_id=current_user.id)
+    """Удаление отзыва по ID (Администратор)."""
+    # Вызываем новый метод репозитория без проверки user_id
+    deleted = await repo.delete_feedback_by_admin(feedback_id)
     if not deleted:
-        # Это может означать, что отзыв не найден ИЛИ он не принадлежит этому пользователю
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Отзыв не найден или у вас нет прав на его удаление"
-        )
-    # В случае успеха возвращаем 204 без тела ответа
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Отзыв не найден")
     return Response(status_code=status.HTTP_204_NO_CONTENT)

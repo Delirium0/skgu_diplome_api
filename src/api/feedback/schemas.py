@@ -9,6 +9,12 @@ class FeedbackBase(BaseModel):
     comment: Optional[str] = Field(None, description="Текстовый комментарий к отзыву")
 
 
+class UserInfo(BaseModel):
+    id: int
+    login: str
+    model_config = ConfigDict(from_attributes=True)
+
+
 class FeedbackCreate(FeedbackBase):
     pass
 
@@ -20,7 +26,7 @@ class FeedbackUpdate(BaseModel):
 
 class FeedbackResponse(FeedbackBase):
     id: int
-    user_id: int
     created_at: datetime
+    user: UserInfo
 
     model_config = ConfigDict(from_attributes=True)

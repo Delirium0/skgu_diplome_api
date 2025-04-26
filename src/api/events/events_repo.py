@@ -33,12 +33,25 @@ class EventsRepository:
             )
             return result.scalar_one_or_none()
 
-    async def get_all_events(self) -> List[Event]:
-        """Получает все события, загружая информацию о создателях."""
+    async def get_all_events(self, only_moderated: bool = False) -> List[Event]:
+        """
+        Получает все события. Если only_moderated=True, возвращает только одобренные.
+        Загружает информацию о создателях.
+        """
         async with self.db.session_maker() as session:
-            result = await session.execute(
-                select(Event).options(joinedload(Event.creator))  # Eager loading создателей
-            )
+            stmt = select(Event).options(joinedload(Event.creator)).order_by(
+                Event.id.desc())  # Сортировка по ID или дате
+            if only_moderated:
+                stmt = stmt.where(Event.is_moderate == True)
+            result = await session.execute(stmt)
+            return result.scalars().all()
+
+    async def get_unmoderated_events(self) -> List[Event]:
+        """Получает все неодобренные события."""
+        async with self.db.session_maker() as session:
+            stmt = select(Event).where(Event.is_moderate == False).options(joinedload(Event.creator)).order_by(
+                Event.id.asc())  # Сначала старые
+            result = await session.execute(stmt)
             return result.scalars().all()
 
     async def update_event(self, event_id: int, event_data: EventUpdate) -> Optional[Event]:
@@ -46,10 +59,25 @@ class EventsRepository:
         async with self.db.session_maker() as session:
             event = await session.get(Event, event_id)
             if event:
-                for key, value in event_data.model_dump(exclude_unset=True).items():
+                update_values = event_data.model_dump(exclude_unset=True)
+                if not update_values:  # Если нечего обновлять
+                    return event  # Возвращаем как есть
+                for key, value in update_values.items():
                     setattr(event, key, value)
                 await session.commit()
-                await session.refresh(event)
+                await session.refresh(event, attribute_names=['creator'])
+                return event
+            return None
+
+    async def set_event_moderated(self, event_id: int) -> Optional[Event]:
+        """Устанавливает is_moderate = True для события."""
+        async with self.db.session_maker() as session:
+            event = await session.get(Event, event_id)
+            if event:
+                if not event.is_moderate:  # Обновляем только если еще не одобрено
+                    event.is_moderate = True
+                    await session.commit()
+                    await session.refresh(event, attribute_names=['creator'])
                 return event
             return None
 

@@ -4,20 +4,25 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from config import MODE
+from src.api.ar.router import router as ar_router
 from src.api.auth.router import router as auth_router
 from src.api.events.router import router as events_router
+from src.api.faculties.router import router as faculties_router
+from src.api.feedback.feedback_router import router as feedback_router
 from src.api.locations.router import router as router_locations
 from src.api.schedule.router import router as schedule_router
 from src.api.search.router import router as router_search
 from src.api.services.important_links.router import router as important_links_router
-from src.api.ar.router import router as ar_router
-from src.api.faculties.router import router as faculties_router
-from src.api.feedback.feedback_router import router as feedback_router
 
+if MODE == "dev":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = ["http://49.13.194.240:3000"]
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Разрешить запросы с любых источников (можно указать конкретные домены)
+    allow_origins=allowed_origins,  # Разрешить запросы с любых источников (можно указать конкретные домены)
     allow_credentials=True,
     allow_methods=["*"],  # Разрешить все методы (GET, POST, PUT, DELETE и т.д.)
     allow_headers=["*"],  # Разрешить все заголовки

@@ -48,7 +48,6 @@ async def login(creds: UserLoginSchema, response: Response):
     user = await user_repository.get_user_by_username(creds.login)
 
     # --- 1. Попытка локальной аутентификации (сравнение открытых паролей) ---
-    # ВНИМАНИЕ: ЭТО НЕБЕЗОПАСНО! СРАВНЕНИЕ ОТКРЫТЫХ ПАРОЛЕЙ!
     if user and hasattr(user, 'password') and user.password == creds.password:
         print(f"Local plaintext auth SUCCESS for {creds.login}")
         # Пароль совпал локально, выдаем токен без обращения к внешнему API

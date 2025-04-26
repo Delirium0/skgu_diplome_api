@@ -1,14 +1,9 @@
-import base64
-from datetime import date
-from typing import Optional, List
-
 from authx.exceptions import JWTDecodeError
-from fastapi import APIRouter, Body
 from fastapi import Depends
 from fastapi import HTTPException, Request
+from fastapi import status
 from jose import ExpiredSignatureError
 from jwt.exceptions import ExpiredSignatureError
-from pydantic import BaseModel, Field, validator, field_validator
 
 from src.api.auth.models import User
 from src.api.auth.router import security
@@ -45,5 +40,14 @@ async def get_current_user(request: Request) -> User:
 async def user_is_admin(current_user=Depends(get_current_user)):
     print(current_user.role)
     if current_user.role != "admin":
-        raise HTTPException(status_code=403, detail="Access denied: Admins only")
+        raise HTTPException(status_code=403, detail="Доступ запрещен: Требуются права Администратора")
+    return current_user
+
+
+async def user_is_moderator_or_admin(current_user: User = Depends(get_current_user)):
+    print(f"Проверка роли для '{current_user.login}': {current_user.role}")
+    allowed_roles = ["admin", "moderator"]
+    if current_user.role not in allowed_roles:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                            detail="Доступ запрещен: Требуются права Модератора или Администратора")
     return current_user

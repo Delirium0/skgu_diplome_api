@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class FloorInfo(BaseModel):
@@ -9,8 +9,7 @@ class FloorInfo(BaseModel):
     floor_number: int
     image_data: str  # Base64 image data
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)  # Для Pydantic v2+
 
 
 class LocationsInfo(BaseModel):
@@ -22,6 +21,7 @@ class LocationsInfo(BaseModel):
     address: str
     title: str
     main_icon: Optional[str] = None
+    model_config = ConfigDict(from_attributes=True)  # Для Pydantic v2+
 
 
 class LocationsInfoMP(BaseModel):
@@ -48,6 +48,7 @@ class LocationWithBoundsResponse(BaseModel):
     building_type: Optional[str] = None  # Добавлено, так как есть в примере вывода (хотя там нет)
     building_type_name_ru: Optional[str] = None  # Добавлено, так как есть в примере вывода (хотя там нет)
     bounds: List[List[float]]  # Список списков [lat, lng]
+    model_config = ConfigDict(from_attributes=True)  # Для Pydantic v2+
 
 
 class LocationInfo(BaseModel):
@@ -62,6 +63,7 @@ class LocationInfo(BaseModel):
     main_icon: Optional[str] = None
     building_type: Optional[str] = None
     building_type_name_ru: Optional[str] = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class LocationCreate(BaseModel):
@@ -79,3 +81,18 @@ class LocationCreate(BaseModel):
 
 class LocationInfoDetail(LocationInfo):
     floors: Optional[List[FloorInfo]] = None  # Добавляем список этажей
+
+
+class LocationUpdate(BaseModel):
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    title: Optional[str] = None
+    type: Optional[str] = None
+    address: Optional[str] = None
+    time_start: Optional[str] = None
+    time_end: Optional[str] = None
+    main_icon: Optional[str] = None
+    building_type: Optional[str] = None
+    building_type_name_ru: Optional[str] = None
+    bounds: Optional[List[List[float]]] = None
+    model_config = ConfigDict(from_attributes=True)
