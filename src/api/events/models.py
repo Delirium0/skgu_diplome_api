@@ -21,3 +21,4 @@ class Event(Base):
     contact_phone = Column(String, nullable=True)
     contact_email = Column(String, nullable=True)
     creator = relationship("User", backref="created_events")  # Связь с моделью User
+    address = Column(String, nullable=True)

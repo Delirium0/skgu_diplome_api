@@ -191,7 +191,10 @@ async def get_schedule_endpoint(current_user=Depends(get_current_user)):
 # --- Аналогично добавляем лимитер в другие эндпоинты, где есть fetch_content_with_ntlm_auth ---
 
 @router.post("/exams_evaluations/", response_model=Dict)
-async def get_exams_evaluations_endpoint(user_login: str = Query(...), user_pass: str = Query(...)):
+async def get_exams_evaluations_endpoint(current_user=Depends(get_current_user)):
+    user_login = current_user.login
+    user_pass = current_user.password_no_hash
+
     # ВНИМАНИЕ: Этот эндпоинт не использует Depends(get_current_user)
     # Передача пароля в Query параметрах - КРАЙНЕ НЕБЕЗОПАСНО!
     # Рекомендуется переделать на использование токена и Depends(get_current_user)

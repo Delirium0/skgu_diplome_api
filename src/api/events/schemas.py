@@ -14,10 +14,11 @@ class EventBase(BaseModel):
     event_description: Optional[str] = None
     contact_phone: Optional[str] = None
     contact_email: Optional[str] = None
+    address: Optional[str] = None
 
 
 class EventCreate(EventBase):
-    pass # is_moderate по умолчанию False в модели
+    pass  # is_moderate по умолчанию False в модели
 
 
 class EventUpdate(EventBase):
@@ -31,6 +32,8 @@ class EventUpdate(EventBase):
     contact_phone: Optional[str] = None  # Добавлено поле contact_phone
     contact_email: Optional[str] = None  # Добавлено поле contact_email
     is_moderate: Optional[bool] = None
+    address: Optional[str] = None
+
 
 class EventResponse(EventBase):
     id: int

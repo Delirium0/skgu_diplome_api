@@ -101,20 +101,3 @@ async def delete_important_link(link_id: int):
     if not deleted:
         raise HTTPException(status_code=404, detail="Ссылка не найдена")
     return  # 204 No Content - успешное удаление, нет тела ответа
-
-#  --- Пример использования (если вы хотите запустить прямо этот файл) ---
-# from fastapi import FastAPI
-# import asyncio
-#
-# app = FastAPI()
-# app.include_router(router)
-#
-# # Для запуска Uvicorn: uvicorn your_file_name:app --reload
-#
-# async def main():
-#     # Пример запроса к эндпоинту (нужен запущенный FastAPI сервер)
-#     # ... (примеры запросов через httpx или curl)
-#     pass
-#
-# if __name__ == "__main__":
-#     asyncio.run(main())

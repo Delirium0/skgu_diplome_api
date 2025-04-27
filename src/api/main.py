@@ -12,6 +12,7 @@ from src.api.faculties.router import router as faculties_router
 from src.api.feedback.feedback_router import router as feedback_router
 from src.api.locations.router import router as router_locations
 from src.api.schedule.router import router as schedule_router
+from src.api.auth.users_router import router as admin_users_router
 from src.api.search.router import router as router_search
 from src.api.services.important_links.router import router as important_links_router
 
@@ -36,6 +37,7 @@ app.include_router(events_router)
 app.include_router(ar_router)
 app.include_router(faculties_router)
 app.include_router(feedback_router)
+app.include_router(admin_users_router)
 
 
 @app.exception_handler(MissingTokenError)
